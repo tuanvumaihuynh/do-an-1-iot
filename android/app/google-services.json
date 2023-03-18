@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "155957667702",
+    "firebase_url": "https://do-an-1-smart-iot-default-rtdb.firebaseio.com",
+    "project_id": "do-an-1-smart-iot",
+    "storage_bucket": "do-an-1-smart-iot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:155957667702:android:a2122f3434a890e2ec7c57",
+        "android_client_info": {
+          "package_name": "com.example.do_an_1_iot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "155957667702-nqbida1uotvjnshd27je6ifg89b457o9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9DcErDtkwtwGogeY3WDyJ27mAK3Uh8x8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "155957667702-nqbida1uotvjnshd27je6ifg89b457o9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
