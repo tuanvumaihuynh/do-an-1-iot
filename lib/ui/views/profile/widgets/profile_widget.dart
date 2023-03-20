@@ -22,7 +22,7 @@ class ProfileWidget extends StatelessWidget {
           children: [
             ClipOval(
               child: CachedNetworkImage(
-                  imageUrl: userModel.avatarUrl!,
+                  imageUrl: userModel.photoUrl!,
                   height: 50,
                   width: 50,
                   fit: BoxFit.cover,
@@ -41,7 +41,7 @@ class ProfileWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    userModel.displayName,
+                    userModel.name,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w400),

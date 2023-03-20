@@ -99,7 +99,7 @@ class EditProfileScreen extends StatelessWidget {
               InkWell(
                 onTap: (() => Navigator.of(context)
                         .push(AppRoute.fadeInAnimation(PhotoViewWidget(
-                      photoUrl: userModel.avatarUrl!,
+                      photoUrl: userModel.photoUrl!,
                     )))),
                 onLongPress: () {
                   _showSelectPhotoOptions(context);
@@ -115,7 +115,7 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                     ClipOval(
                       child: CachedNetworkImage(
-                          imageUrl: userModel!.avatarUrl!,
+                          imageUrl: userModel!.photoUrl!,
                           height: 50,
                           width: 50,
                           fit: BoxFit.cover,
@@ -131,12 +131,12 @@ class EditProfileScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              PersonalInfoLineWidget(title: 'Account ID', data: userModel.uid),
+              PersonalInfoLineWidget(title: 'Account ID', data: userModel.id),
               PersonalInfoLineWidget(
                   title: 'Name',
-                  data: userModel.displayName,
+                  data: userModel.name,
                   canEdited: true,
-                  uid: userModel.uid),
+                  uid: userModel.id),
               const Divider(),
               const SizedBox(
                 height: AppSizes.DEFAULT_PADDING,

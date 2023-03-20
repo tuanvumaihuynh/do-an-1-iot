@@ -21,14 +21,18 @@ class UserProvider with ChangeNotifier {
     print('START: listen to user model');
     await currentUser!.reload();
     currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser?.uid != null) {}
+    print(currentUser);
+
     _userModelStreamSub = _realTimeDBRef
         .child(USER_PATH)
         .child(currentUser!.uid)
         .onValue
         .listen((event) {
-      _userModel = UserModel.fromRTDB(Map<String, dynamic>.from(
-          event.snapshot.value as Map<dynamic, dynamic>));
+      _userModel = UserModel.fromRTDB(
+          Map<String, dynamic>.from(
+              event.snapshot.value as Map<dynamic, dynamic>),
+          currentUser!.uid);
+
       print('Listen to user model ${_userModel?.toJson()}');
       notifyListeners();
     });
@@ -41,7 +45,8 @@ class UserProvider with ChangeNotifier {
         await _realTimeDBRef.child(USER_PATH).child(currentUser!.uid).get();
     if (snapshot.exists) {
       _userModel = UserModel.fromRTDB(
-          Map<String, dynamic>.from(snapshot.value as Map<dynamic, dynamic>));
+          Map<String, dynamic>.from(snapshot.value as Map<dynamic, dynamic>),
+          currentUser!.uid);
     }
   }
 

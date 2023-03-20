@@ -1,37 +1,34 @@
-import 'package:do_an_1_iot/core/models/room_model.dart';
-
 class UserModel {
   UserModel(
-      {required this.uid,
-      required this.displayName,
+      {required this.id,
+      required this.name,
       required this.email,
-      required this.avatarUrl,
-      required this.roomList});
+      required this.photoUrl,
+      required this.homeIDs});
 
-  final String uid;
+  final String id;
   final String email;
-  final String? avatarUrl;
-  final String displayName;
-  final List<RoomModel>? roomList;
+  final String? photoUrl;
+  final String name;
+  final List<String>? homeIDs;
 
-  factory UserModel.fromRTDB(Map<String, dynamic> data) => UserModel(
-        displayName: data["displayName"],
-        uid: data["uid"],
-        email: data["email"],
-        avatarUrl: data["photoUrl"],
-        roomList: data['rooms'] != ""
-            ? List<RoomModel>.from(
-                data['rooms'].map((roomModel) => RoomModel.fromMap(roomModel)))
+  factory UserModel.fromRTDB(Map<String, dynamic> data, String id) => UserModel(
+        id: id,
+        name: data['name'],
+        email: data['email'],
+        photoUrl: data['photoUrl'],
+        homeIDs: data['homeIDs'] != ''
+            ? data['homeIDs'].entries.map((entry) => entry.key).toList()
             : [],
       );
 
   Map<String, dynamic> toJson() => {
-        "displayName": displayName,
-        "uid": uid,
+        //! Don't push id to rtdb because key head contains user id
+        // "id": id,
+        "name": name,
         "email": email,
-        "photoUrl": avatarUrl ?? '',
-        "rooms": roomList != null
-            ? List.from(roomList!.map((roomModel) => roomModel.toMap()))
-            : "",
+        "photoUrl": photoUrl,
+        "homeIDs":
+            homeIDs != null ? {for (var homeID in homeIDs!) homeID: true} : '',
       };
 }

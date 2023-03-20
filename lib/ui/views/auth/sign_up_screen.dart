@@ -5,7 +5,6 @@ import 'package:do_an_1_iot/constants/app_validators.dart';
 import 'package:do_an_1_iot/core/models/user_model.dart';
 import 'package:do_an_1_iot/core/services/firebase_auth_service.dart';
 import 'package:do_an_1_iot/ui/views/auth/widgets/text_field_name.dart';
-import 'package:do_an_1_iot/utils/user_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class SignUpScreen extends StatelessWidget {
                   CircularProgressIndicator(color: AppColors.PRIMARY_COLOR))));
       await Auth()
           .createUserWithEmailAndPassword(email: _email, password: _password);
-      // _pushUserToRTDB();
+      _pushUserToRTDB();
       Navigator.of(context).pop();
     } on FirebaseAuthException catch (e) {
       Navigator.of(context).pop();
@@ -47,15 +46,15 @@ class SignUpScreen extends StatelessWidget {
 
   Future<void> _pushUserToRTDB() async {
     final userModel = UserModel(
-        uid: Auth().currentUser!.uid,
-        displayName: _userName,
+        id: Auth().currentUser!.uid,
+        name: _userName,
         email: _email,
-        avatarUrl:
+        photoUrl:
             'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-        roomList: null);
+        homeIDs: null);
 
     try {
-      await userDatabase.update({userModel.uid: userModel.toJson()});
+      await userDatabase.update({userModel.id: userModel.toJson()});
     } catch (e) {
       // print(e);
     }

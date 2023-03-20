@@ -65,7 +65,7 @@ class PersonalInfoLineWidget extends StatelessWidget {
 
   String _checkTypeEditing() {
     if (title == 'Name') {
-      return 'displayName';
+      return 'name';
     } else if (title == 'Phone number') {
       return 'phoneNumber';
     } else {
