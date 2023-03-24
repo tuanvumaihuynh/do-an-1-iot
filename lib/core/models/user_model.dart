@@ -4,12 +4,14 @@ class UserModel {
       required this.name,
       required this.email,
       required this.photoUrl,
+      required this.phoneNumber,
       required this.homeIDs});
 
   final String id;
   final String email;
   final String? photoUrl;
   final String name;
+  final String? phoneNumber;
   final List<String>? homeIDs;
 
   factory UserModel.fromRTDB(Map<String, dynamic> data, String id) => UserModel(
@@ -17,8 +19,9 @@ class UserModel {
         name: data['name'],
         email: data['email'],
         photoUrl: data['photoUrl'],
+        phoneNumber: data['phoneNumber'],
         homeIDs: data['homeIDs'] != ''
-            ? data['homeIDs'].entries.map((entry) => entry.key).toList()
+            ? [for (var ele in data['homeIDs'].entries) ele.key]
             : [],
       );
 
@@ -28,6 +31,7 @@ class UserModel {
         "name": name,
         "email": email,
         "photoUrl": photoUrl,
+        "phoneNumber": phoneNumber,
         "homeIDs":
             homeIDs != null ? {for (var homeID in homeIDs!) homeID: true} : '',
       };

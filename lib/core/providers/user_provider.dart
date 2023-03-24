@@ -5,14 +5,14 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider with ChangeNotifier {
-  UserModel? _userModel;
+  UserModel? userModel;
   static var currentUser = FirebaseAuth.instance.currentUser;
-
+  static var homeIDList;
   final _realTimeDBRef = FirebaseDatabase.instance.ref();
 
   static const USER_PATH = 'users';
 
-  UserModel? get userModel => _userModel;
+  UserModel? get getUserModel => userModel;
   StreamSubscription<DatabaseEvent> get userStreamSubcription =>
       _userModelStreamSub;
   late StreamSubscription<DatabaseEvent> _userModelStreamSub;
@@ -21,19 +21,18 @@ class UserProvider with ChangeNotifier {
     print('START: listen to user model');
     await currentUser!.reload();
     currentUser = FirebaseAuth.instance.currentUser;
-    print(currentUser);
 
     _userModelStreamSub = _realTimeDBRef
         .child(USER_PATH)
         .child(currentUser!.uid)
         .onValue
         .listen((event) {
-      _userModel = UserModel.fromRTDB(
+      userModel = UserModel.fromRTDB(
           Map<String, dynamic>.from(
               event.snapshot.value as Map<dynamic, dynamic>),
           currentUser!.uid);
-
-      print('Listen to user model ${_userModel?.toJson()}');
+      homeIDList = userModel?.homeIDs;
+      print('Listen to user model ${userModel?.toJson()}');
       notifyListeners();
     });
   }
@@ -44,9 +43,10 @@ class UserProvider with ChangeNotifier {
     final snapshot =
         await _realTimeDBRef.child(USER_PATH).child(currentUser!.uid).get();
     if (snapshot.exists) {
-      _userModel = UserModel.fromRTDB(
+      userModel = UserModel.fromRTDB(
           Map<String, dynamic>.from(snapshot.value as Map<dynamic, dynamic>),
           currentUser!.uid);
+      homeIDList = userModel?.homeIDs;
     }
   }
 

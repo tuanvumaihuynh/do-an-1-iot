@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'package:do_an_1_iot/constants/app_sizes.dart';
-import 'package:do_an_1_iot/core/providers/user_provider.dart';
+
 import 'package:do_an_1_iot/ui/views/bottom_navbar.dart';
-import 'package:do_an_1_iot/utils/user_preferences.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
   const VerifyEmailScreen({super.key});

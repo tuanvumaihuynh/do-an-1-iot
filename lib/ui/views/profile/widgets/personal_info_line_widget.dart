@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:do_an_1_iot/constants/app_sizes.dart';
 
 class PersonalInfoLineWidget extends StatelessWidget {
-  PersonalInfoLineWidget(
+  const PersonalInfoLineWidget(
       {super.key,
       required this.title,
       required this.data,
@@ -14,7 +14,7 @@ class PersonalInfoLineWidget extends StatelessWidget {
         _uid = uid;
   final bool _canEdited;
   final String title;
-  String data;
+  final String data;
   final String? _uid;
 
   Widget editForm(BuildContext context) {
@@ -53,7 +53,6 @@ class PersonalInfoLineWidget extends StatelessWidget {
                     child: CircularProgressIndicator(
                         color: AppColors.PRIMARY_COLOR))));
             await userDatabase.child(_uid!).update({typeEditing: value});
-            data = value;
             Navigator.of(context).pop();
             Navigator.of(context).pop();
           },

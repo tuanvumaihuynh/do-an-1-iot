@@ -1,3 +1,4 @@
+import 'package:do_an_1_iot/core/providers/home_provider.dart';
 import 'package:do_an_1_iot/core/providers/user_provider.dart';
 import 'package:do_an_1_iot/ui/views/loading/loading_screen.dart';
 import 'package:flutter/material.dart';
@@ -38,11 +39,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
       setState(() {
         _isLoading = true;
       });
-      await context.watch<UserProvider>().listenToUserModel().then((value) {
-        setState(() {
-          _isLoading = false;
-          _isInit = false;
-        });
+      await context.read<UserProvider>().fetchAndSetUserData();
+      // final homeIDList = context.read<UserProvider>().homeIDList;
+      // final homeIDList =
+      //     Provider.of<UserProvider>(context, listen: false).homeIDList;
+
+      await Provider.of<HomeProvider>(context, listen: false).fetchHomeData();
+      // Stream for user listener
+      context.read<UserProvider>().listenToUserModel();
+
+      setState(() {
+        _isLoading = false;
+        _isInit = false;
       });
     }
     super.didChangeDependencies();

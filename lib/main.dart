@@ -1,5 +1,6 @@
+import 'package:do_an_1_iot/core/providers/home_provider.dart';
 import 'package:do_an_1_iot/core/providers/user_provider.dart';
-import 'package:do_an_1_iot/utils/user_preferences.dart';
+import 'package:do_an_1_iot/ui/widget_tree.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
@@ -39,7 +40,10 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: ((context) => UserProvider()),
-          )
+          ),
+          ChangeNotifierProvider(
+            create: ((context) => HomeProvider()),
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -48,7 +52,7 @@ class MyApp extends StatelessWidget {
           // TODO: Implement dark mode?
           themeMode: ThemeMode.light,
           // TODO: Need to check launch first time?
-          home: const WelcomeScreen(),
+          home: const WidgetTree(),
         ));
   }
 }

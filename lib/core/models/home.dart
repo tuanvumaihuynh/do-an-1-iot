@@ -1,5 +1,3 @@
-import 'package:do_an_1_iot/core/models/room.dart';
-
 class Home {
   Home({
     required this.id,
@@ -11,17 +9,18 @@ class Home {
   final String name;
   final List<String>? roomIDs;
 
-  factory Home.fromRTDB(Map<String, dynamic> data) => Home(
-        id: data['id'],
+  factory Home.fromRTDB(Map<String, dynamic> data, String id) => Home(
+        id: id,
         name: data['name'],
-        roomIDs: data['roomIDs'].entries.map((entry) => entry.key).toList(),
+        roomIDs: data['roomIDs'] != ''
+            ? [for (var ele in data['roomIDs'].entries) ele.key]
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        // "id": id,
         "name": name,
-        "email": name,
         "roomIDs":
-            roomIDs != null ? {for (var roomID in roomIDs!) roomID: true} : {},
+            roomIDs != null ? {for (var roomID in roomIDs!) roomID: true} : "",
       };
 }

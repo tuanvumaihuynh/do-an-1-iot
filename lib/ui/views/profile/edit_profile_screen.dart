@@ -69,7 +69,7 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userModel = context.watch<UserProvider>().userModel;
+    final userModel = context.watch<UserProvider>().getUserModel;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -169,7 +169,14 @@ class EditProfileScreen extends StatelessWidget {
               ),
 
               PersonalInfoLineWidget(title: 'Email', data: userModel.email),
-              PersonalInfoLineWidget(title: 'Phone number', data: 'null'),
+              PersonalInfoLineWidget(
+                title: 'Phone number',
+                data: userModel.phoneNumber == ''
+                    ? 'No phone number'
+                    : userModel.phoneNumber!,
+                canEdited: true,
+                uid: userModel.id,
+              ),
               const Divider(),
               const SizedBox(
                 height: AppSizes.DEFAULT_PADDING * 7,

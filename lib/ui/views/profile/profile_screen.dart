@@ -28,8 +28,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Consumer<UserProvider>(builder: ((context, data, child) {
-              if (data.userModel != null) {
-                return ProfileWidget(userModel: data.userModel!);
+              if (data.getUserModel != null) {
+                return ProfileWidget(userModel: data.getUserModel!);
               } else {
                 return const Center(
                     child: CircularProgressIndicator(
