@@ -1,3 +1,4 @@
+import 'package:do_an_1_iot/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
 
 class HomeBodyWidget extends StatelessWidget {
@@ -6,20 +7,24 @@ class HomeBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PageController pageController = PageController();
-    return PageView(
-      scrollDirection: Axis.horizontal,
-      controller: pageController,
-      children: const [
-        Center(
-          child: Text("First page"),
-        ),
-        Center(
-          child: Text("Second page"),
-        ),
-        Center(
-          child: Text("Third page"),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSizes.DEFAULT_PADDING),
+      child: PageView(
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        controller: pageController,
+        children: const [
+          Center(
+            child: Text("First page"),
+          ),
+          Center(
+            child: Text("Second page"),
+          ),
+          Center(
+            child: Text("Third page"),
+          ),
+        ],
+      ),
     );
   }
 }

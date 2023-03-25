@@ -81,40 +81,38 @@ class _BottomNavBarState extends State<BottomNavBar> {
             )
           ],
         ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-            child: GNav(
-              rippleColor: Colors.grey[300]!,
-              hoverColor: Colors.grey[100]!,
-              gap: 8,
-              activeColor: const Color(0xFF333333),
-              iconSize: 24,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              duration: const Duration(milliseconds: 100),
-              tabBackgroundColor: AppColors.PRIMARY_COLOR,
-              color: const Color(0xFF666666),
-              tabs: const [
-                GButton(
-                  icon: Icons.home_outlined,
-                  text: 'Home',
-                ),
-                GButton(
-                  icon: Icons.data_thresholding_outlined,
-                  text: 'Statistic',
-                ),
-                GButton(
-                  icon: Icons.person_outline_outlined,
-                  text: 'Profile',
-                ),
-              ],
-              selectedIndex: _selectedIndex,
-              onTabChange: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-            ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+          child: GNav(
+            rippleColor: Colors.grey[300]!,
+            hoverColor: Colors.grey[100]!,
+            gap: 8,
+            activeColor: const Color(0xFF333333),
+            iconSize: 24,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            duration: const Duration(milliseconds: 100),
+            tabBackgroundColor: AppColors.PRIMARY_COLOR,
+            color: const Color(0xFF666666),
+            tabs: const [
+              GButton(
+                icon: Icons.home_outlined,
+                text: 'Home',
+              ),
+              GButton(
+                icon: Icons.data_thresholding_outlined,
+                text: 'Statistic',
+              ),
+              GButton(
+                icon: Icons.person_outline_outlined,
+                text: 'Profile',
+              ),
+            ],
+            selectedIndex: _selectedIndex,
+            onTabChange: (index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
           ),
         ),
       ),
