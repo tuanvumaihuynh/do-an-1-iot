@@ -6,6 +6,6 @@ class StatisticScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //! Dont use scaffold use like profile screen
-    return Scaffold(body: Center(child: Text('Statistic')));
+    return const Scaffold(body: Center(child: Text('Statistic')));
   }
 }

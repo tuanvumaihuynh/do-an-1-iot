@@ -4,7 +4,7 @@ import 'package:do_an_1_iot/constants/app_colors.dart';
 import 'package:do_an_1_iot/constants/app_images.dart';
 import 'package:do_an_1_iot/constants/app_route.dart';
 import 'package:do_an_1_iot/constants/app_sizes.dart';
-import 'package:do_an_1_iot/core/models/user_model.dart';
+import 'package:do_an_1_iot/core/models/user.dart';
 import 'package:do_an_1_iot/ui/views/profile/edit_profile_screen.dart';
 
 class ProfileWidget extends StatelessWidget {

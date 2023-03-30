@@ -1,8 +1,8 @@
 import 'package:do_an_1_iot/constants/app_sizes.dart';
 import 'package:flutter/material.dart';
 
-class HomeTileWidget extends StatelessWidget {
-  const HomeTileWidget({super.key, required this.homeName});
+class NameTileWidget extends StatelessWidget {
+  const NameTileWidget({super.key, required this.homeName});
   final String homeName;
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class HomeTileWidget extends StatelessWidget {
         children: [
           Text(
             homeName,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const Icon(Icons.arrow_forward_ios_rounded, size: 15),
         ],

@@ -9,18 +9,15 @@ class CustomSliverPersistentWidget extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.DEFAULT_PADDING),
-      child: SizedBox(
-        height: 50,
-        child: widget,
-      ),
+      child: widget,
     );
   }
 
   @override
-  double get maxExtent => 100;
+  double get maxExtent => 40;
 
   @override
-  double get minExtent => 50;
+  double get minExtent => 40;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

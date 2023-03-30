@@ -2,7 +2,7 @@ import 'package:do_an_1_iot/constants/app_colors.dart';
 import 'package:do_an_1_iot/constants/app_images.dart';
 import 'package:do_an_1_iot/constants/app_sizes.dart';
 import 'package:do_an_1_iot/constants/app_validators.dart';
-import 'package:do_an_1_iot/core/models/user_model.dart';
+import 'package:do_an_1_iot/core/models/user.dart';
 import 'package:do_an_1_iot/core/services/firebase_auth_service.dart';
 import 'package:do_an_1_iot/ui/views/auth/widgets/text_field_name.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -52,7 +52,7 @@ class SignUpScreen extends StatelessWidget {
         phoneNumber: '',
         photoUrl:
             'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png',
-        homeIDs: null);
+        homeIDs: []);
 
     try {
       await userDatabase.update({userModel.id: userModel.toJson()});

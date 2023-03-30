@@ -12,7 +12,7 @@ class UserModel {
   final String? photoUrl;
   final String name;
   final String? phoneNumber;
-  final List<String>? homeIDs;
+  final List<String> homeIDs;
 
   factory UserModel.fromRTDB(Map<String, dynamic> data, String id) => UserModel(
         id: id,
@@ -33,6 +33,6 @@ class UserModel {
         "photoUrl": photoUrl,
         "phoneNumber": phoneNumber,
         "homeIDs":
-            homeIDs != null ? {for (var homeID in homeIDs!) homeID: true} : '',
+            homeIDs != [] ? {for (var homeID in homeIDs) homeID: true} : '',
       };
 }

@@ -69,7 +69,7 @@ class EditProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userModel = context.watch<UserProvider>().getUserModel;
+    final userModel = context.watch<UserProvider>().userModel;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -151,7 +151,7 @@ class EditProfileScreen extends StatelessWidget {
               const SizedBox(
                 height: AppSizes.DEFAULT_PADDING / 2,
               ),
-              PersonalInfoLineWidget(
+              const PersonalInfoLineWidget(
                   title: 'Google account', data: 'Not paired'),
               const Divider(),
               const SizedBox(
@@ -188,7 +188,9 @@ class EditProfileScreen extends StatelessWidget {
                     onPressed: () async {
                       Navigator.of(context).pop();
                       await FirebaseAuth.instance.signOut();
-                      await context.read<UserProvider>().cancelSub();
+                      await context
+                          .read<UserProvider>()
+                          .cancelStreamSubcription();
                       await CacheManagement.clearCache();
                     },
                     style: TextButton.styleFrom(

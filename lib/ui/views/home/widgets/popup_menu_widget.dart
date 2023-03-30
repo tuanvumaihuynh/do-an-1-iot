@@ -1,3 +1,4 @@
+import 'package:do_an_1_iot/constants/app_colors.dart';
 import 'package:do_an_1_iot/constants/app_route.dart';
 import 'package:do_an_1_iot/core/providers/home_provider.dart';
 import 'package:do_an_1_iot/ui/views/home/manage_home_screen.dart';
@@ -12,8 +13,6 @@ class PopupMenuWidget extends StatefulWidget {
 }
 
 class _PopupMenuWidgetState extends State<PopupMenuWidget> {
-  int _selectedIndex = 0;
-
   List<PopupMenuItem> popupMenuItemList = [];
 
   List<PopupMenuItem> listPopUpItemConvert(List<String> homeNameList) {
@@ -42,7 +41,7 @@ class _PopupMenuWidgetState extends State<PopupMenuWidget> {
     final settingItem = PopupMenuItem(
         // TODO: Define setting home here
         onTap: (() async {
-          //! Need to delay here because when this item is on tap, two nav route close in the same time
+          // Need to delay here because when this item is on tap, two nav route close in the same time
           await Future.delayed(const Duration(milliseconds: 10));
           Navigator.of(context)
               .push(AppRoute.fadeInAnimation(const ManageHomeScreen()));
@@ -63,23 +62,34 @@ class _PopupMenuWidgetState extends State<PopupMenuWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final homeList = context.watch<HomeProvider>().getHomeList;
-    print("Home Length: ${homeList?.length}");
+    final homeProvider = context.watch<HomeProvider>();
+    int selectedIndex = homeProvider.indexSelectedhome;
 
-    List<String> homeNameList =
-        homeList != null ? [for (var home in homeList) home.name] : [];
+    final homeList = homeProvider.homeList;
+
+    List<String> homeNames = [for (var home in homeList!) home.name];
 
     popupMenuItemList = [
-      ...listPopUpItemConvert(homeNameList),
+      ...listPopUpItemConvert(homeNames),
       ...listDefaultPopUpItem
     ];
     return PopupMenuButton(
         position: PopupMenuPosition.under,
-        initialValue: _selectedIndex,
-        onSelected: (value) {
-          setState(() {
-            _selectedIndex = value;
-          });
+        initialValue: selectedIndex,
+        onSelected: (value) async {
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: ((context) => const Center(
+                  child: CircularProgressIndicator(
+                      color: AppColors.PRIMARY_COLOR))));
+
+          await homeProvider.cancelHomeStreamSubcription();
+
+          homeProvider.setIndexSelectedHome(value);
+          await homeProvider.startListeningToHomeChangesInRTDB();
+
+          Navigator.of(context).pop();
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -93,9 +103,7 @@ class _PopupMenuWidgetState extends State<PopupMenuWidget> {
             children: [
               Flexible(
                 child: Text(
-                  homeNameList.isNotEmpty
-                      ? homeNameList[_selectedIndex]
-                      : "No home",
+                  homeNames.isNotEmpty ? homeNames[selectedIndex] : "No home",
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 20,

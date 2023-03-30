@@ -28,25 +28,21 @@ class _BottomNavBarState extends State<BottomNavBar> {
   ];
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() async {
-    print('DIDCHANGEDEPENDENCIES');
+    // print('DIDCHANGEDEPENDENCIES');
     if (_isInit) {
       setState(() {
         _isLoading = true;
       });
-      await context.read<UserProvider>().fetchAndSetUserData();
+      await context.read<UserProvider>().loadCurrentUserFromDB();
       // final homeIDList = context.read<UserProvider>().homeIDList;
       // final homeIDList =
       //     Provider.of<UserProvider>(context, listen: false).homeIDList;
 
       await Provider.of<HomeProvider>(context, listen: false).fetchHomeData();
       // Stream for user listener
-      context.read<UserProvider>().listenToUserModel();
+      context.read<UserProvider>().startListeningToUserChangesInRTDB();
+      context.read<HomeProvider>().startListeningToHomeChangesInRTDB();
 
       setState(() {
         _isLoading = false;
@@ -58,7 +54,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   void dispose() {
-    print('DISPOSE');
+    // print('DISPOSE');
 
     super.dispose();
   }

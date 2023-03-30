@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:do_an_1_iot/ui/views/welcome/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 

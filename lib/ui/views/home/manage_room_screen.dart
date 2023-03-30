@@ -1,27 +1,26 @@
 import 'package:do_an_1_iot/constants/app_colors.dart';
 import 'package:do_an_1_iot/constants/app_sizes.dart';
-import 'package:do_an_1_iot/core/models/home.dart';
+import 'package:do_an_1_iot/core/models/room.dart';
 import 'package:do_an_1_iot/core/providers/home_provider.dart';
-import 'package:do_an_1_iot/core/providers/user_provider.dart';
 import 'package:do_an_1_iot/core/services/unique_id_service.dart';
 import 'package:do_an_1_iot/ui/views/home/widgets/name_tile_widget.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ManageHomeScreen extends StatelessWidget {
-  const ManageHomeScreen({super.key});
+class ManageRoomScreen extends StatelessWidget {
+  const ManageRoomScreen({super.key});
 
   Widget editForm(BuildContext context) {
     var editController = TextEditingController();
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      title: const Text('New home'),
+      title: const Text('New room'),
       content: TextFormField(
         controller: editController,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(10),
-          labelText: 'Enter home name',
+          labelText: 'Enter room name',
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -47,23 +46,20 @@ class ManageHomeScreen extends StatelessWidget {
                 builder: ((context) => const Center(
                     child: CircularProgressIndicator(
                         color: AppColors.PRIMARY_COLOR))));
-            final uid = UserProvider.currentUser!.uid;
-            final newHome = Home(
-                id: UniqueIDService.timeBasedID, name: inputValue, room: null);
-
-            // Update new home into user info
-            await firebaseDb
-                .child("users")
-                .child(uid)
-                .child("homeIDs")
-                .update({newHome.id: true});
-            // Add new home data into database
-
+            final homeID = context.read<HomeProvider>().selectedHome.id;
+            final newRoom = Room(
+                id: UniqueIDService.timeBasedID,
+                name: inputValue,
+                device: null);
+            //
+            // Update new room into current home
+            //
             await firebaseDb
                 .child("homes")
-                .child(newHome.id)
-                .update(newHome.toJson());
-            // Fetch home data again
+                .child(homeID)
+                .child("room")
+                .update({newRoom.id: newRoom.toJson()});
+
             await Provider.of<HomeProvider>(context, listen: false)
                 .fetchHomeData();
 
@@ -78,9 +74,10 @@ class ManageHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final homeList = context.watch<HomeProvider>().homeList;
-    List<String> homeNameList =
-        homeList != null ? [for (var home in homeList) home.name] : [];
+    final homeProvider = context.watch<HomeProvider>();
+    final selectedHome = homeProvider.selectedHome;
+    final roomList = selectedHome.room;
+
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: (() {
@@ -91,20 +88,21 @@ class ManageHomeScreen extends StatelessWidget {
             },
           );
         }),
-        label: const Text("Add Home"),
+        label: const Text("Add Room"),
         icon: const Icon(Icons.add),
         backgroundColor: AppColors.PRIMARY_COLOR,
       ),
       backgroundColor: Colors.white,
       appBar: AppBar(
-          iconTheme: const IconThemeData(color: Colors.black),
-          backgroundColor: Colors.white,
-          elevation: 0,
-          centerTitle: true,
-          title: const Text(
-            'Manage homes',
-            style: TextStyle(color: Colors.black),
-          )),
+        iconTheme: const IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          'Manage rooms',
+          style: TextStyle(color: Colors.black),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(AppSizes.DEFAULT_PADDING),
@@ -112,7 +110,7 @@ class ManageHomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'My family',
+                selectedHome.name,
                 style: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: const Color(0xFF666666),
                     ),
@@ -121,13 +119,13 @@ class ManageHomeScreen extends StatelessWidget {
                 height: AppSizes.DEFAULT_PADDING,
               ),
               Column(
-                children: homeNameList.isEmpty
+                children: roomList!.isEmpty
                     ? [
                         const Center(
-                            child: Text("You don't have home?? So sad")),
+                            child: Text("You don't have room?? So sad")),
                       ]
-                    : homeNameList
-                        .map((e) => NameTileWidget(homeName: e))
+                    : roomList
+                        .map((room) => NameTileWidget(homeName: room.name))
                         .toList(),
               ),
             ],
