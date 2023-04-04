@@ -26,8 +26,10 @@ class UserProvider with ChangeNotifier {
     // print('START: listen to user model');
 
     final currentUser = FirebaseAuth.instance.currentUser;
+
     if (currentUser == null) return;
     await currentUser.reload();
+
     _userModelStreamSub = _realTimeDBRef
         .child(USER_PATH)
         .child(currentUser.uid)
@@ -37,6 +39,7 @@ class UserProvider with ChangeNotifier {
           Map<String, dynamic>.from(
               event.snapshot.value as Map<dynamic, dynamic>),
           currentUser.uid);
+
       // print('Listen to user model ${_user?.toJson()}');
       homeIDs = _user!.homeIDs;
 
@@ -48,14 +51,18 @@ class UserProvider with ChangeNotifier {
   /// and `homeIDs` variables. Does nothing if there is no current user.
   Future<void> loadCurrentUserFromDB() async {
     final currentUser = FirebaseAuth.instance.currentUser;
+
     if (currentUser == null) return;
     await currentUser.reload();
+
     final snapshot =
         await _realTimeDBRef.child(USER_PATH).child(currentUser.uid).get();
+
     if (snapshot.exists) {
       _user = UserModel.fromRTDB(
           Map<String, dynamic>.from(snapshot.value as Map<dynamic, dynamic>),
           currentUser.uid);
+
       homeIDs = _user!.homeIDs;
     }
   }

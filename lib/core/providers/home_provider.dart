@@ -40,6 +40,7 @@ class HomeProvider with ChangeNotifier {
 
     for (var homeID in homeIDList) {
       final databaseEvent =
+          //! Fix this: Fetch parallel don't block by await (it costs too much time to fetch)
           await _realTimeDBRef.child(HOME_PATH).child(homeID).once();
 
       if (databaseEvent.snapshot.exists) {

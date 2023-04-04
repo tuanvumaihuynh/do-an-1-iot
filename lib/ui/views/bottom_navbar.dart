@@ -34,10 +34,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
       setState(() {
         _isLoading = true;
       });
+
       await context.read<UserProvider>().loadCurrentUserFromDB();
-      // final homeIDList = context.read<UserProvider>().homeIDList;
-      // final homeIDList =
-      //     Provider.of<UserProvider>(context, listen: false).homeIDList;
 
       await Provider.of<HomeProvider>(context, listen: false).fetchHomeData();
       // Stream for user listener
@@ -50,13 +48,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
       });
     }
     super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    // print('DISPOSE');
-
-    super.dispose();
   }
 
   @override
