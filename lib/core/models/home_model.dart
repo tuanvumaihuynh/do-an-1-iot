@@ -1,7 +1,7 @@
-import 'package:do_an_1_iot/core/models/room.dart';
+import 'package:do_an_1_iot/core/models/room_model.dart';
 
-class Home {
-  Home({
+class HomeModel {
+  HomeModel({
     required this.id,
     required this.name,
     required this.room,
@@ -11,7 +11,7 @@ class Home {
   final String name;
   final List<Room>? room;
 
-  factory Home.fromRTDB(Map<String, dynamic> data, String id) {
+  factory HomeModel.fromRTDB(Map<String, dynamic> data, String id) {
     final List<Room> roomList = [];
     if (data["room"] != "") {
       data["room"].forEach((key, value) {
@@ -19,7 +19,7 @@ class Home {
             Map<String, dynamic>.from(value as Map<dynamic, dynamic>), key));
       });
     }
-    return Home(
+    return HomeModel(
       id: id,
       name: data['name'],
       room: roomList,

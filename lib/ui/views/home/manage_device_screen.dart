@@ -1,5 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:do_an_1_iot/constants/app_colors.dart';
 import 'package:do_an_1_iot/constants/app_device.dart';
+import 'package:do_an_1_iot/constants/app_images.dart';
 import 'package:do_an_1_iot/constants/app_sizes.dart';
 import 'package:do_an_1_iot/core/providers/home_provider.dart';
 import 'package:flutter/material.dart';
@@ -119,6 +121,7 @@ class _ManageDeviceScreenState extends State<ManageDeviceScreen> {
 
                 Navigator.of(context).pop();
                 Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
               child: const Text("Create"),
             )
@@ -142,10 +145,18 @@ class _ManageDeviceScreenState extends State<ManageDeviceScreen> {
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           child: Row(
             children: [
-              Image.asset(
-                item["image"],
-                fit: BoxFit.fill,
-                height: 40,
+              CachedNetworkImage(
+                imageUrl: item["image"],
+                height: 50,
+                width: 50,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => const CircularProgressIndicator(
+                    color: AppColors.PRIMARY_COLOR),
+                errorWidget: ((context, url, error) => Image.asset(
+                      AppImages.DEFAULT_DEVICE,
+                      height: 40,
+                      width: 40,
+                    )),
               ),
               const SizedBox(width: 15),
               Expanded(
@@ -166,7 +177,6 @@ class _ManageDeviceScreenState extends State<ManageDeviceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // print(selectedRoomName);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -265,6 +275,18 @@ class _ManageDeviceScreenState extends State<ManageDeviceScreen> {
                 "Air treatment",
               ),
               buildGridviewForDevice(AppDevice.airTreatmentDevices, context),
+
+              //
+              //  Household Security section
+              //
+
+              const SizedBox(
+                height: AppSizes.DEFAULT_PADDING,
+              ),
+              const Text(
+                "Household security",
+              ),
+              buildGridviewForDevice(AppDevice.houseHoldSecurity, context),
             ],
           ),
         ),

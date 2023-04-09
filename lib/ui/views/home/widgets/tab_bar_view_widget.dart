@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:do_an_1_iot/constants/app_colors.dart';
+import 'package:do_an_1_iot/constants/app_images.dart';
 import 'package:do_an_1_iot/constants/app_sizes.dart';
-import 'package:do_an_1_iot/core/models/device.dart';
+import 'package:do_an_1_iot/core/models/device_model.dart';
 import 'package:do_an_1_iot/core/providers/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -16,7 +18,6 @@ class TabBarViewWidget extends StatelessWidget {
     final roomList = homeProvider.selectedHome.room;
 
     Widget buildDeviceCard(Device device, String roomID) {
-      // print(device.toJson());
       return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15), color: Colors.white),
@@ -26,10 +27,24 @@ class TabBarViewWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                device.image,
-                fit: BoxFit.fill,
+              //! ERROR: Replace with CacheImage from db
+              // Image.asset(
+              //   device.image,
+              //   fit: BoxFit.fill,
+              //   height: 50,
+              // ),
+              CachedNetworkImage(
+                imageUrl: device.image,
                 height: 50,
+                width: 50,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => const CircularProgressIndicator(
+                    color: AppColors.PRIMARY_COLOR),
+                errorWidget: ((context, url, error) => Image.asset(
+                      AppImages.DEFAULT_DEVICE,
+                      height: 50,
+                      width: 50,
+                    )),
               ),
               Text(
                 device.name,

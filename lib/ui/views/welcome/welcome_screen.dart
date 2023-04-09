@@ -6,8 +6,6 @@ import 'package:do_an_1_iot/constants/app_images.dart';
 import 'package:do_an_1_iot/constants/app_sizes.dart';
 import 'package:do_an_1_iot/ui/widget_tree.dart';
 
-// TODO: Replace this with splash first launch or remove forever
-// TODO: This screen should be checked launching first time, if we show every time user open, widget VerifyEmailScreen will cause an error because of dipose state
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 

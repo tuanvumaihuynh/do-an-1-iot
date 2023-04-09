@@ -34,7 +34,8 @@ class Fan extends Device {
     super.type = "fan",
     super.state,
     this.value = 0,
-    super.image = "assets/images/fan-96.png",
+    super.image =
+        "https://firebasestorage.googleapis.com/v0/b/do-an-1-smart-iot.appspot.com/o/device_storage%2Ffan.png?alt=media&token=41f78eb6-81a4-473b-8d47-644e88d98858",
   });
   final int value;
 
@@ -44,7 +45,8 @@ class Fan extends Device {
         type: "fan",
         state: json['state'],
         value: json['value'],
-        image: "assets/images/fan-96.png",
+        image:
+            "https://firebasestorage.googleapis.com/v0/b/do-an-1-smart-iot.appspot.com/o/device_storage%2Ffan.png?alt=media&token=41f78eb6-81a4-473b-8d47-644e88d98858",
       );
   @override
   Map<String, dynamic> toJson() => {
@@ -57,13 +59,42 @@ class Fan extends Device {
       };
 }
 
+class DoorLock extends Device {
+  DoorLock({
+    required super.id,
+    required super.name,
+    super.type = "door_lock",
+    super.state,
+    super.image =
+        "https://firebasestorage.googleapis.com/v0/b/do-an-1-smart-iot.appspot.com/o/device_storage%2Fdoor_lock.png?alt=media&token=20be9d63-79ab-41e5-819b-9bf055c4a4cd",
+  });
+
+  factory DoorLock.fromRTDB(Map<String, dynamic> json, String id) => DoorLock(
+        id: id,
+        name: json['name'],
+        type: "door_lock",
+        state: json['state'],
+        image:
+            "https://firebasestorage.googleapis.com/v0/b/do-an-1-smart-iot.appspot.com/o/device_storage%2Fdoor_lock.png?alt=media&token=20be9d63-79ab-41e5-819b-9bf055c4a4cd",
+      );
+  @override
+  Map<String, dynamic> toJson() => {
+        id: {
+          'name': name,
+          'type': type,
+          'state': state,
+        }
+      };
+}
+
 class Led extends Device {
   Led({
     required super.id,
     required super.name,
     super.type = "led",
     super.state,
-    super.image = "assets/images/bulb-96.png",
+    super.image =
+        "https://firebasestorage.googleapis.com/v0/b/do-an-1-smart-iot.appspot.com/o/device_storage%2Flight_bulb.png?alt=media&token=464dbb7a-56f4-4691-918d-a58c8c7e6adf",
   });
 
   factory Led.fromRTDB(Map<String, dynamic> json, String id) => Led(
@@ -71,7 +102,8 @@ class Led extends Device {
         name: json['name'],
         type: "led",
         state: json['state'],
-        image: "assets/images/bulb-96.png",
+        image:
+            "https://firebasestorage.googleapis.com/v0/b/do-an-1-smart-iot.appspot.com/o/device_storage%2Flight_bulb.png?alt=media&token=464dbb7a-56f4-4691-918d-a58c8c7e6adf",
       );
   @override
   Map<String, dynamic> toJson() => {
@@ -121,7 +153,7 @@ class SuperLed extends Device {
   SuperLed({
     required super.id,
     required super.name,
-    super.type = "super led",
+    super.type = "super_led",
     this.mode = 1,
     super.state,
   });

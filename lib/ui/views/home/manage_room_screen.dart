@@ -1,6 +1,6 @@
 import 'package:do_an_1_iot/constants/app_colors.dart';
 import 'package:do_an_1_iot/constants/app_sizes.dart';
-import 'package:do_an_1_iot/core/models/room.dart';
+import 'package:do_an_1_iot/core/models/room_model.dart';
 import 'package:do_an_1_iot/core/providers/home_provider.dart';
 import 'package:do_an_1_iot/core/services/unique_id_service.dart';
 import 'package:do_an_1_iot/ui/views/home/widgets/name_tile_widget.dart';

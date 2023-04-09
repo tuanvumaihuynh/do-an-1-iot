@@ -1,6 +1,6 @@
 import 'package:do_an_1_iot/constants/app_colors.dart';
 import 'package:do_an_1_iot/constants/app_sizes.dart';
-import 'package:do_an_1_iot/core/models/home.dart';
+import 'package:do_an_1_iot/core/models/home_model.dart';
 import 'package:do_an_1_iot/core/providers/home_provider.dart';
 import 'package:do_an_1_iot/core/providers/user_provider.dart';
 import 'package:do_an_1_iot/core/services/unique_id_service.dart';
@@ -48,7 +48,7 @@ class ManageHomeScreen extends StatelessWidget {
                     child: CircularProgressIndicator(
                         color: AppColors.PRIMARY_COLOR))));
             final uid = UserProvider.currentUser!.uid;
-            final newHome = Home(
+            final newHome = HomeModel(
                 id: UniqueIDService.timeBasedID, name: inputValue, room: null);
 
             // Update new home into user info

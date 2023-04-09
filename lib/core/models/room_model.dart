@@ -1,4 +1,4 @@
-import 'package:do_an_1_iot/core/models/device.dart';
+import 'package:do_an_1_iot/core/models/device_model.dart';
 
 class Room {
   Room({
@@ -43,6 +43,8 @@ Device exportDevice(String key, Map<String, dynamic> value) {
       return Fan.fromRTDB(value, key);
     case "dht11":
       return HumidAndTempSensor.fromRTDB(value, key);
+    case "door_lock":
+      return DoorLock.fromRTDB(value, key);
     default:
       return SuperLed.fromRTDB(value, key);
   }

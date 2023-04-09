@@ -1,26 +1,26 @@
 import 'dart:async';
 
-import 'package:do_an_1_iot/core/models/device.dart';
-import 'package:do_an_1_iot/core/models/home.dart';
-import 'package:do_an_1_iot/core/models/room.dart';
+import 'package:do_an_1_iot/core/models/device_model.dart';
+import 'package:do_an_1_iot/core/models/home_model.dart';
+import 'package:do_an_1_iot/core/models/room_model.dart';
 import 'package:do_an_1_iot/core/providers/user_provider.dart';
 import 'package:do_an_1_iot/core/services/unique_id_service.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class HomeProvider with ChangeNotifier {
-  final List<Home> _homeList = [];
+  final List<HomeModel> _homeList = [];
   int indexSelectedhome = 0;
-  late Home _selectedHome;
+  late HomeModel _selectedHome;
   final homeIDList = UserProvider.homeIDs;
   final _realTimeDBRef = FirebaseDatabase.instance.ref();
 
   static const HOME_PATH = 'homes';
   static List<List<String>?>? roomIDList;
 
-  Home get selectedHome => _selectedHome;
+  HomeModel get selectedHome => _selectedHome;
 
-  List<Home>? get homeList => _homeList;
+  List<HomeModel>? get homeList => _homeList;
 
   StreamSubscription<DatabaseEvent>? get homeStreamSubcription =>
       _homeStreamSubciption;
@@ -32,26 +32,31 @@ class HomeProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  /// Fetch parallel
   Future<void> fetchHomeData() async {
     // Reset home list and home ID List when fetch
     final homeIDList = UserProvider.homeIDs;
 
     _homeList.clear();
 
+    final futures = <Future>[];
     for (var homeID in homeIDList) {
-      final databaseEvent =
-          //! Fix this: Fetch parallel don't block by await (it costs too much time to fetch)
-          await _realTimeDBRef.child(HOME_PATH).child(homeID).once();
+      futures.add(_realTimeDBRef.child(HOME_PATH).child(homeID).once());
+    }
 
+    final results = await Future.wait(futures);
+
+    for (var databaseEvent in results) {
       if (databaseEvent.snapshot.exists) {
-        var home = Home.fromRTDB(
-            Map<String, dynamic>.from(
-                databaseEvent.snapshot.value as Map<dynamic, dynamic>),
-            homeID);
-
+        var home = HomeModel.fromRTDB(
+          Map<String, dynamic>.from(
+              databaseEvent.snapshot.value as Map<dynamic, dynamic>),
+          databaseEvent.snapshot.key,
+        );
         _homeList.add(home);
       }
     }
+
     _selectedHome = homeList![indexSelectedhome];
 
     notifyListeners();
@@ -71,7 +76,7 @@ class HomeProvider with ChangeNotifier {
         .child(selectedHome.id)
         .onValue
         .listen((dataBaseEvent) {
-      _selectedHome = Home.fromRTDB(
+      _selectedHome = HomeModel.fromRTDB(
           Map<String, dynamic>.from(
               dataBaseEvent.snapshot.value as Map<dynamic, dynamic>),
           selectedHome.id);
@@ -123,6 +128,8 @@ class HomeProvider with ChangeNotifier {
         return Fan(id: id, name: deviceName).toJson();
       case "dht11":
         return HumidAndTempSensor(id: id, name: deviceName).toJson();
+      case "door_lock":
+        return DoorLock(id: id, name: deviceName).toJson();
       default:
         return SuperLed(id: id, name: deviceName).toJson();
     }
