@@ -38,41 +38,21 @@ dependencies:
 
   firebase_core: ^2.7.1
   firebase_auth: ^4.2.10
+
   firebase_database: ^10.0.15
   firebase_storage: ^11.0.15
 
-  google_nav_bar: ^5.0.6
   provider: ^6.0.5
-  connectivity_plus: ^3.0.3
-  # shared_preferences: ^2.0.15
 
-  flutter_svg: ^1.1.6
-  form_field_validator: ^1.1.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
   cached_network_image: ^3.2.3
   image_picker: ^0.8.7
-  flutter_cache_manager: ^3.3.0
+
   flutter_switch: ^0.3.2
 
-  intl: ^0.17.0
-
-  flutter_native_splash: ^2.0.0
-flutter_native_splash:
-  android: true
-  ios: false
-  web: false
-
-  color: "#FFFFFF"
-  image: assets/default/android12splash.png
-  branding: assets/default/android12splash.png
-  color_dark: "#121212"
-  image_dark: assets/default/android12splash.png
-  branding_dark: assets/default/android12splash.png
-
-  android_12:
-    image: assets/default/android12splash.png
-    icon_background_color: "#FFFFFF"
-    image_dark: assets/default/android12splash.png
-    icon_background_color_dark: "#121212"
+  # intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -113,17 +93,19 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
+  fonts:
+    - family: Circular
+      fonts:
+        - asset: assets/fonts/CircularStd-Book.ttf
+
+        - asset: assets/fonts/CircularStd-Medium.ttf
+          weight: 600
+
+        - asset: assets/fonts/CircularStd-Black.ttf
+          weight: 700
+
+        - asset: assets/fonts/CircularStd-Bold.ttf
+          weight: 900
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
