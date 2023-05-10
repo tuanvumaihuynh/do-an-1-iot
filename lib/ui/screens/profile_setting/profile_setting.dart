@@ -24,7 +24,8 @@ class ProfileSettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userModel = Provider.of<DataProvider>(context).userModel;
+    final dataProvider = Provider.of<DataProvider>(context);
+    final userModel = dataProvider.userModel;
 
     return Scaffold(
       appBar: AppBar(
@@ -79,7 +80,7 @@ class ProfileSettingScreen extends StatelessWidget {
                 canEdited: true),
             const Divider(),
             const SizedBox(height: AppSizes.defaultPadding),
-            _buildSignOutButton(context),
+            _buildSignOutButton(context, dataProvider),
           ],
         ),
       ),
@@ -156,7 +157,8 @@ class ProfileSettingScreen extends StatelessWidget {
         ),
       );
 
-  Widget _buildSignOutButton(BuildContext context) => SizedBox(
+  Widget _buildSignOutButton(BuildContext context, DataProvider dataProvider) =>
+      SizedBox(
         width: double.infinity,
         child: ElevatedButton(
           style: TextButton.styleFrom(
@@ -167,6 +169,7 @@ class ProfileSettingScreen extends StatelessWidget {
             // Sign out
             await AuthService.signOut();
 
+            dataProvider.clearUserData();
             // Navigate to Sign in screen
             await AppNavigator.replaceWithThenRemoveAllCurrentRoute(
                 Routes.signIn);

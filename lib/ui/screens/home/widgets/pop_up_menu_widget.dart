@@ -3,18 +3,13 @@ import 'package:do_an_1_iot/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PopUpMenuWidget extends StatefulWidget {
-  const PopUpMenuWidget({super.key});
+class PopUpMenuWidget extends StatelessWidget {
+  const PopUpMenuWidget({super.key, required this.tabController});
 
-  @override
-  State<PopUpMenuWidget> createState() => _PopUpMenuWidgetState();
-}
-
-class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
-  List<PopupMenuItem> _popupMenuItemList = [];
-
+  final TabController? tabController;
   @override
   Widget build(BuildContext context) {
+    List<PopupMenuItem> popupMenuItemList = [];
     final dataProvider = Provider.of<DataProvider>(context);
 
     int? indexSelectedHome = dataProvider.indexSelectedHome;
@@ -22,12 +17,12 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
     List<String>? homeNames = dataProvider.homeNames;
 
     if (indexSelectedHome != null && homeNames != null) {
-      _popupMenuItemList = [
+      popupMenuItemList = [
         ..._homePopupItems(dataProvider),
         ..._defaultPopupItems
       ];
     } else {
-      _popupMenuItemList = [..._defaultPopupItems];
+      popupMenuItemList = [..._defaultPopupItems];
     }
 
     return PopupMenuButton(
@@ -37,7 +32,7 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
         borderRadius: BorderRadius.circular(20),
       ),
       onSelected: ((value) {}),
-      itemBuilder: (context) => _popupMenuItemList,
+      itemBuilder: (context) => popupMenuItemList,
       child: SizedBox(
         width: 200,
         child: Row(
@@ -101,9 +96,16 @@ class _PopUpMenuWidgetState extends State<PopUpMenuWidget> {
       final int index = homeNames.indexOf(homeName);
       final popUpMenuItem = PopupMenuItem(
         onTap: (() {
+          // Reset index and update data
+          tabController?.animateTo(0,
+              curve: Curves.bounceIn,
+              duration: const Duration(milliseconds: 500));
+
           dataProvider.setSelectedHome(dataProvider.homes![index]);
 
-          dataProvider.setSelectedRoom(dataProvider.rooms!.first);
+          if (dataProvider.rooms != null) {
+            dataProvider.setSelectedRoom(dataProvider.rooms!.first);
+          }
         }),
         value: index,
         child: SizedBox(

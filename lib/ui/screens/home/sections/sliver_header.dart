@@ -4,8 +4,9 @@ import 'package:do_an_1_iot/ui/screens/home/widgets/pop_up_menu_widget.dart';
 import 'package:flutter/material.dart';
 
 class SliverHeader extends StatelessWidget {
-  const SliverHeader({super.key});
+  const SliverHeader({super.key, this.tabController});
 
+  final TabController? tabController;
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -25,7 +26,7 @@ class SliverHeader extends StatelessWidget {
             const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
         child: Row(
           children: [
-            const PopUpMenuWidget(),
+            PopUpMenuWidget(tabController: tabController),
             const Spacer(),
             const Icon(
               Icons.notifications_none_outlined,

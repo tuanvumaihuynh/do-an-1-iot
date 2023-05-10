@@ -45,17 +45,17 @@ class DataProvider extends ChangeNotifier {
   void setSelectedHome(HomeModel homeModel) {
     _selectedHome = homeModel;
 
+    rooms = homeModel.rooms;
+
     notifyListeners();
   }
   // --------- RoomModel ---------------
 
   RoomModel? _selectedRoom;
 
-  RoomModel? get selectedRoom => _selectedRoom;
+  List<RoomModel>? rooms;
 
-  List<RoomModel>? get rooms {
-    return selectedHome?.rooms;
-  }
+  RoomModel? get selectedRoom => _selectedRoom;
 
   int? get indexSelectedRoom {
     if (rooms == null || selectedRoom == null) {
@@ -71,7 +71,7 @@ class DataProvider extends ChangeNotifier {
     return null;
   }
 
-  void setSelectedRoom(RoomModel roomModel) {
+  void setSelectedRoom(RoomModel? roomModel) {
     _selectedRoom = roomModel;
 
     notifyListeners();
@@ -188,7 +188,10 @@ class DataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> cancelUserStreamSubcription() async {
-    await _dataStreamSubcription.cancel();
+  void clearUserData() {
+    _userModel = null;
+    _selectedHome = null;
+    _selectedRoom = null;
+    rooms = null;
   }
 }

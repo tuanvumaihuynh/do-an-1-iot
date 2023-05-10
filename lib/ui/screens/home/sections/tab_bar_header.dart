@@ -1,50 +1,45 @@
-import 'package:do_an_1_iot/ui/screens/home/widgets/tab_bar_widget.dart';
+import 'package:do_an_1_iot/models/room_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants/sizes.dart';
 import '../../../../providers/data_provider.dart';
 
-class TabBarHeader extends StatefulWidget {
-  const TabBarHeader({super.key});
+class TabBarHeader extends StatelessWidget {
+  const TabBarHeader({super.key, required this.tabController});
 
-  @override
-  State<TabBarHeader> createState() => _TabBarHeaderState();
-}
-
-class _TabBarHeaderState extends State<TabBarHeader> {
-  bool _isInit = true;
-  late TabController _tabController;
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    if (_isInit) {
-      final dataProvider = Provider.of<DataProvider>(context);
-      print('tabbarHeader init');
-      _tabController = DefaultTabController.of(context)!;
-
-      _tabController.addListener(() {
-        dataProvider.setSelectedRoom(dataProvider.rooms![_tabController.index]);
-
-        print(dataProvider.selectedRoom!.name);
-      });
-
-      setState(() {
-        _isInit = false;
-      });
-    }
-  }
-
+  final TabController? tabController;
   @override
   Widget build(BuildContext context) {
-    return SliverPersistentHeader(
-      floating: true,
-      pinned: true,
-      delegate: _SliverAppBarDelegate(
-        widget: const TabBarWidget(),
-      ),
-    );
+    return Consumer<DataProvider>(
+        builder: (BuildContext context, dataProvider, _) {
+      final List<RoomModel>? rooms = dataProvider.rooms;
+
+      final List<String>? roomNames =
+          rooms == null ? null : [for (var room in rooms) room.name];
+
+      // print(roomNames);
+
+      return SliverPersistentHeader(
+        floating: true,
+        pinned: true,
+        delegate: _SliverAppBarDelegate(
+          widget: TabBar(
+            controller: tabController,
+            labelPadding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
+            unselectedLabelColor: const Color(0xFF958B8A),
+            labelColor: const Color(0xFF4A4444),
+            isScrollable: true,
+            tabs: _buildRoomTabs(roomNames!),
+          ),
+        ),
+      );
+    });
+  }
+
+  List<Widget> _buildRoomTabs(List<String> roomNames) {
+    return [for (var roomName in roomNames) Text(roomName)];
   }
 }
 

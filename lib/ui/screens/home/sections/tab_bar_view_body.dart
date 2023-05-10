@@ -8,13 +8,15 @@ import '../../../../constants/sizes.dart';
 import '../../../../routes.dart';
 
 class TabBarViewBody extends StatelessWidget {
-  const TabBarViewBody({super.key});
+  const TabBarViewBody({super.key, required this.tabController});
 
+  final TabController? tabController;
   @override
   Widget build(BuildContext context) {
     final dataProvider = Provider.of<DataProvider>(context);
 
     return TabBarView(
+      controller: tabController,
       children: _roomPages(dataProvider),
     );
   }
@@ -43,39 +45,24 @@ class TabBarViewBody extends StatelessWidget {
       );
     }
 
-    return Column(
-      children: [
-        Flexible(
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
-            child: GridView.count(
-              crossAxisCount: 2,
-              primary: false,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 1.0,
-              padding: const EdgeInsets.only(top: 45),
-              children: devices
-                  .map((device) => DeviceCard(
-                        device: device,
-                      ))
-                  .toList(),
-            ),
-          ),
+    return Flexible(
+      child: Padding(
+        padding:
+            const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
+        child: GridView.count(
+          crossAxisCount: 2,
+          primary: false,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 1.0,
+          padding: const EdgeInsets.only(top: 45),
+          children: devices
+              .map((device) => DeviceCard(
+                    device: device,
+                  ))
+              .toList(),
         ),
-        SizedBox(
-          height: 50,
-          child: ElevatedButton(
-              onPressed: () {
-                print('---------------Debug data-------------');
-                print(dataProvider.selectedHome!.name);
-                print(dataProvider.selectedRoom!.name);
-                print('--------------------------------------');
-              },
-              child: Text('print')),
-        ),
-      ],
+      ),
     );
   }
 }

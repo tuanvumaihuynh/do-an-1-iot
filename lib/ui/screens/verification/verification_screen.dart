@@ -64,6 +64,11 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   'Verification',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w700),
                 ),
+                const SizedBox(height: AppSizes.defaultPadding * 3),
+                const Text(
+                  'Please check your mailbox',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                ),
                 const SizedBox(height: AppSizes.defaultPadding * 10),
                 _buildSendEmailButton(),
                 const SizedBox(height: AppSizes.defaultPadding),
