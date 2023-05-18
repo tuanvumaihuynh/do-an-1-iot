@@ -45,23 +45,20 @@ class TabBarViewBody extends StatelessWidget {
       );
     }
 
-    return Flexible(
-      child: Padding(
-        padding:
-            const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
-        child: GridView.count(
-          crossAxisCount: 2,
-          primary: false,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          childAspectRatio: 1.0,
-          padding: const EdgeInsets.only(top: 45),
-          children: devices
-              .map((device) => DeviceCard(
-                    device: device,
-                  ))
-              .toList(),
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
+      child: GridView.count(
+        crossAxisCount: 2,
+        primary: false,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+        childAspectRatio: 1.0,
+        padding: const EdgeInsets.only(top: 45),
+        children: devices
+            .map((device) => DeviceCard(
+                  device: device,
+                ))
+            .toList(),
       ),
     );
   }

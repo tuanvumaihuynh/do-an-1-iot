@@ -3,7 +3,6 @@ import 'package:do_an_1_iot/constants/sizes.dart';
 import 'package:do_an_1_iot/providers/data_provider.dart';
 import 'package:do_an_1_iot/routes.dart';
 import 'package:do_an_1_iot/ui/screens/home/sections/sliver_header.dart';
-import 'package:do_an_1_iot/ui/screens/home/sections/tab_bar_header.dart';
 import 'package:do_an_1_iot/ui/screens/home/sections/tab_bar_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,9 +28,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       print('init tabController');
 
       _tabController?.dispose();
+      int initialTabIndex = 0;
+      if (dataProvider.selectedRoom != null) {
+        initialTabIndex =
+            dataProvider.rooms?.indexOf(dataProvider.selectedRoom!) ?? 0;
+      }
 
       _tabController = TabController(
-          initialIndex: 0, length: tabControllerLength, vsync: this);
+          initialIndex: initialTabIndex,
+          length: tabControllerLength,
+          vsync: this);
 
       _tabController!.addListener(() {
         dataProvider
@@ -66,8 +72,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         child: NestedScrollView(
             headerSliverBuilder: (context, _) => <Widget>[
                   SliverHeader(tabController: _tabController),
-                  // if (roomLength != 0)
-                  // TabBarHeader(tabController: _tabController),
                 ],
             body: Column(
               children: [
@@ -97,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                       ),
                     ),
                   ),
-                Flexible(child: _buildTabContent(homeLength, roomLength)),
+                _buildTabContent(homeLength, roomLength),
               ],
             )),
       ),
@@ -135,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ],
       );
     } else {
-      return TabBarViewBody(tabController: _tabController);
+      return Flexible(child: TabBarViewBody(tabController: _tabController));
     }
   }
 }
