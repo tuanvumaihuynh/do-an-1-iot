@@ -5,26 +5,42 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:do_an_1_iot/my_app.dart';
+import 'package:do_an_1_iot/utils/cache/local_data_source.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:do_an_1_iot/main.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  group('LocalDataSource', () {
+    late LocalDataSource localDataSource;
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    setUpAll(() async {
+      await Hive.initFlutter();
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    setUp(() async {
+      await Hive.deleteBoxFromDisk(LocalDataSource.darkMode);
+      await LocalDataSource.initialize();
+      localDataSource = LocalDataSource();
+    });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    test('isDarkMode returns false by default', () {
+      expect(localDataSource.isDarkMode, false);
+    });
+
+    test('toggleTheme toggles the dark mode', () {
+      localDataSource.toggleTheme();
+      expect(localDataSource.isDarkMode, true);
+
+      localDataSource.toggleTheme();
+      expect(localDataSource.isDarkMode, false);
+    });
+
+    test('isDarkMode returns true after toggling the theme', () {
+      localDataSource.toggleTheme();
+      expect(localDataSource.isDarkMode, true);
+    });
   });
 }
