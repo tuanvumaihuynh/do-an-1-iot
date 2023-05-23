@@ -25,8 +25,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     if (_tabController == null ||
         tabControllerLength != _tabController?.length) {
-      print('init tabController');
-
       _tabController?.dispose();
       int initialTabIndex = 0;
       if (dataProvider.selectedRoom != null) {
@@ -50,7 +48,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    print('dipose tabController');
     _tabController?.dispose();
 
     super.dispose();
@@ -85,8 +82,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         controller: _tabController,
                         labelPadding: const EdgeInsets.only(
                             left: 10, right: 10, top: 10, bottom: 10),
-                        unselectedLabelColor: const Color(0xFF958B8A),
-                        labelColor: const Color(0xFF4A4444),
+                        unselectedLabelColor: Theme.of(context)
+                            .textTheme
+                            .labelMedium
+                            ?.color
+                            ?.withOpacity(0.3),
+                        labelColor:
+                            Theme.of(context).textTheme.labelMedium?.color,
                         indicatorColor: AppColors.primaryColor,
                         indicatorSize: TabBarIndicatorSize.label,
                         physics: const BouncingScrollPhysics(),

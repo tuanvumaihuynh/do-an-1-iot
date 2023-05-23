@@ -27,7 +27,6 @@ class _MainScreenState extends State<MainScreen> {
 
   final List<Widget> _screen = <Widget>[
     const HomeScreen(),
-    const StatisticScreen(),
     const ProfileScreen()
   ];
 
@@ -85,9 +84,9 @@ class _MainScreenState extends State<MainScreen> {
               items: const [
                 BottomNavigationBarItem(
                     icon: Icon(Icons.home_outlined), label: 'Home'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.data_thresholding_outlined),
-                    label: 'Statistic'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(Icons.data_thresholding_outlined),
+                //     label: 'Statistic'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.person_outline_outlined),
                     label: 'Profile'),

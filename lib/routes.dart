@@ -1,3 +1,4 @@
+import 'package:do_an_1_iot/ui/screens/control_device/control_device_screen.dart';
 import 'package:do_an_1_iot/ui/screens/manage_device/manage_device_screen.dart';
 import 'package:do_an_1_iot/ui/screens/manage_room/manage_room_screen.dart';
 import 'package:do_an_1_iot/ui/screens/signin/sign_in_screen.dart';
@@ -6,7 +7,6 @@ import 'package:do_an_1_iot/ui/screens/verification/verification_screen.dart';
 import 'package:do_an_1_iot/ui/screens/manage_home/manage_home_screen.dart';
 import 'package:do_an_1_iot/ui/screens/profile_setting/profile_setting.dart';
 import 'package:flutter/material.dart';
-
 import 'animations/fade_page_route.dart';
 import 'ui/screens/main/main_screen.dart';
 import 'ui/screens/splash/splash_screen.dart';
@@ -83,7 +83,7 @@ class AppNavigator {
       case _Paths.manageDevice:
         return FadeRoute(page: const ManageDeviceScreen());
       case _Paths.controlDevice:
-        return FadeRoute(page: Container());
+        return FadeRoute(page: const ControlDeviceScreen());
       case _Paths.statistic:
         return FadeRoute(page: Container());
       case _Paths.profile:

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../routes.dart';
+import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_dialog.dart';
 
 class ManageRoomScreen extends StatefulWidget {
@@ -67,40 +68,32 @@ class _ManageRoomScreenState extends State<ManageRoomScreen> {
         icon: const Icon(Icons.add),
         backgroundColor: AppColors.primaryColor,
       ),
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        leading: GestureDetector(
-            onTap: (() {
-              AppNavigator.pop();
-            }),
-            child: const Icon(Icons.arrow_back, color: Colors.black)),
-        title: Text(
-          'Room management',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(AppSizes.defaultPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'My room',
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: const Color(0xFF666666),
-                    ),
-              ),
-              const SizedBox(height: AppSizes.defaultPadding),
-              roomNames == null
-                  ? const Center(child: Text("No room founded"))
-                  : Column(
-                      children: roomNames
-                          .map((roomName) => CustomTileWidget(title: roomName))
-                          .toList(),
-                    ),
-            ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizes.defaultPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const CustomAppBar(title: 'Room management'),
+                const SizedBox(height: AppSizes.defaultPadding),
+                Text(
+                  'My room',
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: const Color(0xFF666666),
+                      ),
+                ),
+                const SizedBox(height: AppSizes.defaultPadding),
+                roomNames == null
+                    ? const Center(child: Text("No room founded"))
+                    : Column(
+                        children: roomNames
+                            .map(
+                                (roomName) => CustomTileWidget(title: roomName))
+                            .toList(),
+                      ),
+              ],
+            ),
           ),
         ),
       ),

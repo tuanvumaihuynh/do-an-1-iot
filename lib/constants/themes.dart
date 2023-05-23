@@ -16,12 +16,8 @@ class AppThemes {
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: AppColors.primaryColor,
-    backgroundColor: AppColors.litghtBackgroundColor,
-    scaffoldBackgroundColor: AppColors.litghtBackgroundColor,
-    appBarTheme: AppBarTheme(
-      toolbarTextStyle: lightText,
-      backgroundColor: AppColors.litghtBackgroundColor,
-    ),
+    backgroundColor: AppColors.lightBackgroundColor,
+    scaffoldBackgroundColor: AppColors.lightBackgroundColor,
     textTheme: TextTheme(
       bodyLarge: lightText,
       bodyMedium: lightText,
@@ -31,8 +27,8 @@ class AppThemes {
       labelSmall: lightText,
     ),
     iconTheme: const IconThemeData(color: AppColors.darkGrey),
-    colorScheme:
-        ColorScheme.fromSwatch().copyWith(background: AppColors.whiteGrey),
+    // colorScheme:
+    //     ColorScheme.fromSwatch().copyWith(background: AppColors.whiteGrey),
   );
 
   static final ThemeData darkTheme = ThemeData(
@@ -40,9 +36,6 @@ class AppThemes {
     primaryColor: AppColors.primaryColor,
     backgroundColor: AppColors.darkBackgroundColor,
     scaffoldBackgroundColor: AppColors.darkBackgroundColor,
-    appBarTheme: AppBarTheme(
-        toolbarTextStyle: darkText,
-        backgroundColor: AppColors.darkBackgroundColor),
     textTheme: TextTheme(
       bodyLarge: darkText,
       bodyMedium: darkText,

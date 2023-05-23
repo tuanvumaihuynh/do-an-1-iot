@@ -13,7 +13,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await LocalDataSource.initialize();
-  bool isDarkModeOn = LocalDataSource().isDarkMode;
 
   ///
   /// Device orientation
@@ -28,14 +27,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  ///
-  /// Status bar setting
-  ///
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // transparent status bar
-    statusBarIconBrightness: isDarkModeOn ? Brightness.light : Brightness.dark,
-  ));
 
   ///
   /// runApp
