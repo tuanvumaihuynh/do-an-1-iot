@@ -23,7 +23,11 @@ class AvatarImageCustom extends StatelessWidget {
             height: imageSize,
             width: imageSize,
             fit: BoxFit.cover,
-            placeholder: (context, url) => Container(),
+            placeholder: (context, url) => Image(
+              image: AppImages.defaultAvatar,
+              height: imageSize,
+              width: imageSize,
+            ),
             errorWidget: (context, url, error) => Image(
               image: AppImages.defaultAvatar,
               height: imageSize,

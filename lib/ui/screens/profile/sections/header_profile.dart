@@ -1,3 +1,4 @@
+import 'package:do_an_1_iot/constants/colors.dart';
 import 'package:do_an_1_iot/providers/data_provider.dart';
 import 'package:do_an_1_iot/routes.dart';
 import 'package:do_an_1_iot/ui/widgets/avatar_image.dart';
@@ -41,8 +42,8 @@ class HeaderProfile extends StatelessWidget {
                   Text(
                     userModel.email,
                     overflow: TextOverflow.ellipsis,
-                    style:
-                        const TextStyle(color: Color(0xFF7F7F7F), fontSize: 15),
+                    style: const TextStyle(
+                        color: AppColors.secondaryColor, fontSize: 15),
                   ),
                 ],
               ),

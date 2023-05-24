@@ -1,5 +1,3 @@
-// ignore_for_file: always_specify_types
-
 import 'dart:async';
 
 import 'package:do_an_1_iot/services/auth_service.dart';
@@ -23,12 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     scheduleMicrotask(() async {
       await AppImages.precacheAssets(context);
 
-      ///
-      /// This delay section for fetching data
-      ///
-      await Future.delayed(const Duration(milliseconds: 500));
-
-      _handleRoutes();
+      await _handleRoutes();
     });
 
     super.initState();

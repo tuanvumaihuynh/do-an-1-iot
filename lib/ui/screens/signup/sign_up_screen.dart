@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../routes.dart';
+import '../../../constants/colors.dart';
 import '../../widgets/custom_dialog.dart';
 import '../../widgets/snack_bar.dart';
 
@@ -59,7 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const SizedBox(height: AppSizes.defaultPadding),
                 const Text(
-                  'Lorem ipsum dolor ngki amet consectetuer pumps hi',
+                  'Create a profile and connect to your smarthome',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
                   textAlign: TextAlign.center,
                 ),
@@ -81,7 +82,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       onPressed: () async {
                         await AppNavigator.replaceWith(Routes.signIn);
                       },
-                      child: const Text('Sign in'),
+                      child: const Text(
+                        'Sign in',
+                        style: TextStyle(color: AppColors.primaryColor),
+                      ),
                     ),
                   ],
                 ),
@@ -125,7 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         width: double.infinity,
         child: ElevatedButton(
           style: TextButton.styleFrom(
-              // backgroundColor: const Color(0xFF6CD8D1),
+              backgroundColor: AppColors.primaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10))),
           onPressed: () async {

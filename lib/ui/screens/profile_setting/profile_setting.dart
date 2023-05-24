@@ -80,7 +80,6 @@ class ProfileSettingScreen extends StatelessWidget {
   }
 
   void _showPhotoOptions(BuildContext context) async {
-    /// TODO: A big bug when showModalBottomSheet
     showModalBottomSheet(
         context: context,
         shape: const RoundedRectangleBorder(
@@ -95,6 +94,7 @@ class ProfileSettingScreen extends StatelessWidget {
       if (image == null) return;
 
       // Show loading dialog
+      // ignore: use_build_context_synchronously
       CustomDialog.showLoadingDialog(context);
       // Handle upload
       final date = _formatDate();

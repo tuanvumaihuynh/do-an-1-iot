@@ -45,7 +45,6 @@ class _ManageHomeScreenState extends State<ManageHomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // TODO: Fix when no input submit
           ModalBottomSheetCustom.showWithTextField(
               context, _formKey, 'Home', _textController, onSubmit: () async {
             // Pop modal bottom sheet

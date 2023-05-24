@@ -5,11 +5,8 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:do_an_1_iot/my_app.dart';
-import 'package:do_an_1_iot/utils/cache/local_data_source.dart';
-import 'package:flutter/material.dart';
+import 'package:do_an_1_iot/utils/local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() {

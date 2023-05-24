@@ -4,8 +4,6 @@ import 'package:do_an_1_iot/ui/screens/manage_device/widgets/bluetooth_view_widg
 import 'package:do_an_1_iot/ui/widgets/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 
-import '../../../routes.dart';
-
 class ManageDeviceScreen extends StatelessWidget {
   const ManageDeviceScreen({super.key});
 

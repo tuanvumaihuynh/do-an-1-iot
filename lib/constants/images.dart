@@ -15,6 +15,8 @@ class AppImages {
   static const AssetImage pikloader = _Image('pika_loader.gif');
   static const AssetImage logo = _Image('android12splash_old.png');
   static const AssetImage googleIcon = _Image('google_icon.png');
+  static const AssetImage sunIcon = _Image('sun.png');
+  static const AssetImage nightIcon = _Image('night.png');
 
   static Future<void> precacheAssets(BuildContext context) async {
     await precacheImage(defaultDevice, context);
@@ -23,5 +25,7 @@ class AppImages {
     await precacheImage(pikloader, context);
     await precacheImage(logo, context);
     await precacheImage(googleIcon, context);
+    await precacheImage(sunIcon, context);
+    await precacheImage(nightIcon, context);
   }
 }

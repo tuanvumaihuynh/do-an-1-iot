@@ -4,6 +4,7 @@ import 'package:do_an_1_iot/providers/data_provider.dart';
 import 'package:do_an_1_iot/routes.dart';
 import 'package:do_an_1_iot/ui/screens/home/sections/sliver_header.dart';
 import 'package:do_an_1_iot/ui/screens/home/sections/tab_bar_view_body.dart';
+import 'package:do_an_1_iot/ui/screens/home/widgets/weather_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,48 +68,49 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: DefaultTabController(
         length: roomLength,
         child: NestedScrollView(
-            headerSliverBuilder: (context, _) => <Widget>[
-                  SliverHeader(tabController: _tabController),
-                ],
-            body: Column(
-              children: [
-                if (roomNames != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: AppSizes.defaultPadding),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: TabBar(
-                        controller: _tabController,
-                        labelPadding: const EdgeInsets.only(
-                            left: 10, right: 10, top: 10, bottom: 10),
-                        unselectedLabelColor: Theme.of(context)
-                            .textTheme
-                            .labelMedium
-                            ?.color
-                            ?.withOpacity(0.3),
-                        labelColor:
-                            Theme.of(context).textTheme.labelMedium?.color,
-                        indicatorColor: AppColors.primaryColor,
-                        indicatorSize: TabBarIndicatorSize.label,
-                        physics: const BouncingScrollPhysics(),
-                        isScrollable: true,
-                        tabs: [
-                          for (var roomName in roomNames)
-                            Text(
-                              roomName,
-                              style: const TextStyle(fontSize: 20),
-                            )
-                        ],
-                      ),
-                    ),
-                  ),
-                _buildTabContent(homeLength, roomLength),
-              ],
-            )),
+          headerSliverBuilder: (context, _) => <Widget>[
+            SliverHeader(tabController: _tabController),
+          ],
+          body: Column(
+            children: [
+              const WeatherCard(),
+              if (roomNames != null) _buildTabBar(roomNames),
+              _buildTabContent(homeLength, roomLength),
+            ],
+          ),
+        ),
       ),
     );
   }
+
+  Widget _buildTabBar(List<String> roomNames) => Padding(
+        padding:
+            const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: TabBar(
+            controller: _tabController,
+            labelPadding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+            unselectedLabelColor: Theme.of(context)
+                .textTheme
+                .labelMedium
+                ?.color
+                ?.withOpacity(0.3),
+            labelColor: Theme.of(context).textTheme.labelMedium?.color,
+            indicatorColor: AppColors.primaryColor,
+            indicatorSize: TabBarIndicatorSize.label,
+            isScrollable: true,
+            tabs: [
+              for (var roomName in roomNames)
+                Text(
+                  roomName,
+                  style: const TextStyle(fontSize: 20),
+                )
+            ],
+          ),
+        ),
+      );
 
   Widget _buildTabContent(int homeLength, int roomLength) {
     if (homeLength == 0) {

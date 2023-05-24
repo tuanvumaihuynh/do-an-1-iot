@@ -2,7 +2,6 @@ import 'package:do_an_1_iot/constants/colors.dart';
 import 'package:do_an_1_iot/constants/sizes.dart';
 import 'package:do_an_1_iot/models/device_model.dart';
 import 'package:do_an_1_iot/providers/data_provider.dart';
-import 'package:do_an_1_iot/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
@@ -19,10 +18,7 @@ class DeviceCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async {
-        if (device.type == 'fan') {
-          dataProvider.setSelectedDevice(device);
-          await AppNavigator.push(Routes.controlDevice);
-        }
+        dataProvider.setSelectedDevice(device);
       },
       child: Card(
         shape: RoundedRectangleBorder(

@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:do_an_1_iot/constants/colors.dart';
 import 'package:do_an_1_iot/constants/sizes.dart';
 import 'package:do_an_1_iot/routes.dart';
 import 'package:do_an_1_iot/services/auth_service.dart';
@@ -55,11 +56,11 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 const SizedBox(height: AppSizes.defaultPadding),
                 const Text(
-                  'Lorem ipsum dolor ngki amet consectetuer pumps hi',
+                  'Enter your credentials to continue.',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w300),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: AppSizes.defaultPadding * 2),
+                const SizedBox(height: AppSizes.defaultPadding * 3),
                 SignInForm(
                   formKey: _formKey,
                   emailController: _emailController,
@@ -70,10 +71,36 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(height: AppSizes.defaultPadding * 2),
                 _buildDivider(),
                 const SizedBox(height: AppSizes.defaultPadding * 2),
-                const Image(
-                  image: AppImages.googleIcon,
-                  height: 50,
-                  fit: BoxFit.contain,
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () async {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(13),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Image(
+                            image: AppImages.googleIcon,
+                            height: 30,
+                            fit: BoxFit.contain,
+                          ),
+                          SizedBox(width: AppSizes.defaultPadding),
+                          Text(
+                            'Sign in with Google',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: AppColors.textColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: AppSizes.defaultPadding * 2),
                 Row(
@@ -84,7 +111,10 @@ class _SignInScreenState extends State<SignInScreen> {
                       onPressed: () async {
                         await AppNavigator.replaceWith(Routes.signUp);
                       },
-                      child: const Text('Register now'),
+                      child: const Text(
+                        'Register now',
+                        style: TextStyle(color: AppColors.primaryColor),
+                      ),
                     )
                   ],
                 ),
@@ -130,7 +160,10 @@ class _SignInScreenState extends State<SignInScreen> {
         alignment: Alignment.centerRight,
         child: TextButton(
           onPressed: () {},
-          child: const Text("Forgot password?"),
+          child: const Text(
+            "Forgot password?",
+            style: TextStyle(color: AppColors.primaryColor),
+          ),
         ),
       );
 
@@ -138,7 +171,7 @@ class _SignInScreenState extends State<SignInScreen> {
         width: double.infinity,
         child: ElevatedButton(
           style: TextButton.styleFrom(
-              // backgroundColor: const Color(0xFF6CD8D1),
+              backgroundColor: AppColors.primaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10))),
           onPressed: () async {

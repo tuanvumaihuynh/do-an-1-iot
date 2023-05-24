@@ -6,15 +6,29 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double splashIconSize = 70;
-    return const Scaffold(
+    const double splashIconSize = 200;
+    return Scaffold(
       body: Center(
-          child: Image(
-        image: AppImages.pikloader,
-        width: splashIconSize,
-        height: splashIconSize,
-        fit: BoxFit.contain,
-      )),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Image(
+              image: AppImages.logo,
+              width: splashIconSize,
+              height: splashIconSize,
+              fit: BoxFit.contain,
+            ),
+            Text(
+              'Smartify',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w500,
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

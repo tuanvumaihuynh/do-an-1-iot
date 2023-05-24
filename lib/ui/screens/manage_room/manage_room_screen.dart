@@ -45,7 +45,6 @@ class _ManageRoomScreenState extends State<ManageRoomScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // TODO: Fix when no input submit
           ModalBottomSheetCustom.showWithTextField(
               context, _formKey, 'Room', _textController, onSubmit: () {
             // Pop modal bottom sheet

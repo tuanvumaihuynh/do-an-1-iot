@@ -1,8 +1,8 @@
+import 'package:do_an_1_iot/animations/scroll_behavior.dart';
 import 'package:do_an_1_iot/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
 import 'constants/themes.dart';
 import 'routes.dart';
 
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
           if (child == null) {
             return const SizedBox.shrink();
           }
-          return child;
+          return ScrollConfiguration(behavior: MyBehavior(), child: child);
         },
       );
     });

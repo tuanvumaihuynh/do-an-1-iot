@@ -6,7 +6,7 @@ import 'package:do_an_1_iot/models/room_model.dart';
 import 'package:do_an_1_iot/models/user_model.dart';
 import 'package:do_an_1_iot/services/auth_service.dart';
 import 'package:do_an_1_iot/services/realtime_database_service.dart';
-import 'package:do_an_1_iot/utils/id/id_generator.dart';
+import 'package:do_an_1_iot/utils/id_generator.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
@@ -118,8 +118,6 @@ class DataProvider extends ChangeNotifier {
   void _updateData(String id, Map<dynamic, dynamic> data) {
     _userModel = UserModel.fromDatabase(id, data);
 
-    print(_userModel!.toJson());
-
     // Handle init data
     if (homes != null && _selectedHome == null) {
       setSelectedHome(homes!.first);
@@ -150,6 +148,7 @@ class DataProvider extends ChangeNotifier {
     _userModel = null;
     _selectedHome = null;
     _selectedRoom = null;
+    _selectedDevice = null;
     rooms = null;
   }
 }

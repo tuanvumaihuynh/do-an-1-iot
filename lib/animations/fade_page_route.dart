@@ -5,9 +5,7 @@ class FadeRoute extends PageRouteBuilder<Widget> {
       : super(
           transitionDuration: const Duration(milliseconds: 300),
           pageBuilder: (_, __, ___) => page,
-          transitionsBuilder:
-              (_, Animation<double> animation, __, Widget child) =>
-                  FadeTransition(
+          transitionsBuilder: (_, animation, __, child) => FadeTransition(
             opacity: animation,
             child: child,
           ),
