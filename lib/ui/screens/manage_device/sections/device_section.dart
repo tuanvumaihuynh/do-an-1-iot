@@ -1,7 +1,6 @@
 import 'package:do_an_1_iot/constants/sizes.dart';
 import 'package:do_an_1_iot/data/device_data.dart';
 import 'package:do_an_1_iot/ui/screens/manage_device/widgets/device_card_widget.dart';
-import 'package:do_an_1_iot/ui/widgets/modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class DeviceSection extends StatelessWidget {

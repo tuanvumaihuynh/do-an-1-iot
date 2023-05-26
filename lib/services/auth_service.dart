@@ -58,9 +58,7 @@ class AuthService {
   static Future<void> verifyEmail() async {
     try {
       await _auth.currentUser!.sendEmailVerification();
-    } catch (e) {
-      print(e.toString());
-    }
+    } catch (e) {}
   }
 
   static Future<void> sendPasswordResetEmail(String email) async {

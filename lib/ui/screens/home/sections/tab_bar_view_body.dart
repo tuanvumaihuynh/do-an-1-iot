@@ -3,7 +3,6 @@ import 'package:do_an_1_iot/providers/data_provider.dart';
 import 'package:do_an_1_iot/ui/screens/home/widgets/device_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../../constants/sizes.dart';
 import '../../../../routes.dart';
 
@@ -45,20 +44,38 @@ class TabBarViewBody extends StatelessWidget {
       );
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
-      child: GridView.count(
-        crossAxisCount: 2,
-        primary: false,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 1.0,
-        padding: const EdgeInsets.only(top: 45),
-        children: devices
-            .map((device) => DeviceCard(
-                  device: device,
-                ))
-            .toList(),
+    return SingleChildScrollView(
+      primary: false,
+      physics: const NeverScrollableScrollPhysics(),
+      child: Column(
+        children: [
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
+            child: GridView.count(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              primary: false,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 1.0,
+              padding: const EdgeInsets.only(top: AppSizes.defaultPadding),
+              children: devices
+                  .map((device) => DeviceCard(
+                        device: device,
+                      ))
+                  .toList(),
+            ),
+          ),
+          const SizedBox(height: AppSizes.defaultPadding),
+          OutlinedButton(
+            onPressed: () async {
+              await AppNavigator.push(Routes.manageDevice);
+            },
+            child: const Text('Edit'),
+          )
+        ],
       ),
     );
   }

@@ -17,7 +17,9 @@ class DeviceCard extends StatelessWidget {
     const double paddingSize = AppSizes.defaultPadding;
 
     return GestureDetector(
-      onTap: (() {}),
+      onTap: () async {
+        dataProvider.setSelectedDevice(device);
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -45,6 +47,9 @@ class DeviceCard extends StatelessWidget {
                     inactiveColor: Theme.of(context).scaffoldBackgroundColor,
                     value: device.state,
                     onToggle: (state) async {
+                      /// Disable door controller
+                      if (device.type == 'door_lock') return;
+
                       await dataProvider
                           .updateDeviceData(device.id, {'state': state});
                     },

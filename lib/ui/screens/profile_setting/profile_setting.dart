@@ -10,6 +10,7 @@ import 'package:do_an_1_iot/ui/screens/profile_setting/widgets/list_tile_widget.
 import 'package:do_an_1_iot/ui/screens/profile_setting/widgets/photo_select_widget.dart';
 import 'package:do_an_1_iot/ui/screens/profile_setting/widgets/title_widget.dart';
 import 'package:do_an_1_iot/ui/widgets/avatar_image.dart';
+import 'package:do_an_1_iot/ui/widgets/custom_app_bar.dart';
 import 'package:do_an_1_iot/ui/widgets/custom_dialog.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -28,67 +29,57 @@ class ProfileSettingScreen extends StatelessWidget {
     final userModel = dataProvider.userModel;
 
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        leading: GestureDetector(
-            onTap: (() {
-              AppNavigator.pop();
-            }),
-            child: const Icon(Icons.arrow_back, color: Colors.black)),
-        title: Text(
-          'Personal info',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(AppSizes.defaultPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TitleWidget(title: 'Personal info'),
-            const SizedBox(height: AppSizes.defaultPadding),
-            _buildProfilePhoto(context, userModel!.photoUrl!),
-            ListTileWidget(
-              title: 'Account ID',
-              data: userModel.id,
-            ),
-            ListTileWidget(
-              title: 'Name',
-              data: userModel.name,
-              canEdited: true,
-            ),
-            const Divider(),
-            const SizedBox(height: AppSizes.defaultPadding),
-            const TitleWidget(title: 'Add account'),
-            const SizedBox(height: AppSizes.defaultPadding / 2),
-            const ListTileWidget(
-              title: 'Google account',
-              data: 'Not pair',
-            ),
-            const Divider(),
-            const SizedBox(height: AppSizes.defaultPadding),
-            const TitleWidget(title: 'Email and phone number'),
-            const SizedBox(height: AppSizes.defaultPadding / 2),
-            ListTileWidget(
-              title: 'Email',
-              data: userModel.email,
-            ),
-            ListTileWidget(
-                title: 'Phone number',
-                data: userModel.phoneNumber!,
-                canEdited: true),
-            const Divider(),
-            const SizedBox(height: AppSizes.defaultPadding),
-            _buildSignOutButton(context, dataProvider),
-          ],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(AppSizes.defaultPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CustomAppBar(title: 'Personal Info'),
+              const SizedBox(height: AppSizes.defaultPadding),
+              const TitleWidget(title: 'Personal info'),
+              const SizedBox(height: AppSizes.defaultPadding),
+              _buildProfilePhoto(context, userModel!.photoUrl!),
+              ListTileWidget(
+                title: 'Account ID',
+                data: userModel.id,
+              ),
+              ListTileWidget(
+                title: 'Name',
+                data: userModel.name,
+                canEdited: true,
+              ),
+              const Divider(),
+              const SizedBox(height: AppSizes.defaultPadding),
+              const TitleWidget(title: 'Add account'),
+              const SizedBox(height: AppSizes.defaultPadding / 2),
+              const ListTileWidget(
+                title: 'Google account',
+                data: 'Not pair',
+              ),
+              const Divider(),
+              const SizedBox(height: AppSizes.defaultPadding),
+              const TitleWidget(title: 'Email and phone number'),
+              const SizedBox(height: AppSizes.defaultPadding / 2),
+              ListTileWidget(
+                title: 'Email',
+                data: userModel.email,
+              ),
+              ListTileWidget(
+                  title: 'Phone number',
+                  data: userModel.phoneNumber!,
+                  canEdited: true),
+              const Divider(),
+              const SizedBox(height: AppSizes.defaultPadding),
+              _buildSignOutButton(context, dataProvider),
+            ],
+          ),
         ),
       ),
     );
   }
 
   void _showPhotoOptions(BuildContext context) async {
-    /// TODO: A big bug when showModalBottomSheet
     showModalBottomSheet(
         context: context,
         shape: const RoundedRectangleBorder(
@@ -103,6 +94,7 @@ class ProfileSettingScreen extends StatelessWidget {
       if (image == null) return;
 
       // Show loading dialog
+      // ignore: use_build_context_synchronously
       CustomDialog.showLoadingDialog(context);
       // Handle upload
       final date = _formatDate();

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../routes.dart';
+import '../../widgets/custom_app_bar.dart';
 
 class ManageHomeScreen extends StatefulWidget {
   const ManageHomeScreen({super.key});
@@ -44,7 +45,6 @@ class _ManageHomeScreenState extends State<ManageHomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          // TODO: Fix when no input submit
           ModalBottomSheetCustom.showWithTextField(
               context, _formKey, 'Home', _textController, onSubmit: () async {
             // Pop modal bottom sheet
@@ -64,40 +64,32 @@ class _ManageHomeScreenState extends State<ManageHomeScreen> {
         icon: const Icon(Icons.add),
         backgroundColor: AppColors.primaryColor,
       ),
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        leading: GestureDetector(
-            onTap: (() {
-              AppNavigator.pop();
-            }),
-            child: const Icon(Icons.arrow_back, color: Colors.black)),
-        title: Text(
-          'Home management',
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(AppSizes.defaultPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'My home',
-                style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                      color: const Color(0xFF666666),
-                    ),
-              ),
-              const SizedBox(height: AppSizes.defaultPadding),
-              homeNames == null
-                  ? const Center(child: Text("No home founded"))
-                  : Column(
-                      children: homeNames
-                          .map((homeName) => CustomTileWidget(title: homeName))
-                          .toList(),
-                    ),
-            ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(AppSizes.defaultPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const CustomAppBar(title: 'Home management'),
+                const SizedBox(height: AppSizes.defaultPadding),
+                Text(
+                  'My home',
+                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: const Color(0xFF666666),
+                      ),
+                ),
+                const SizedBox(height: AppSizes.defaultPadding),
+                homeNames == null
+                    ? const Center(child: Text("No home founded"))
+                    : Column(
+                        children: homeNames
+                            .map(
+                                (homeName) => CustomTileWidget(title: homeName))
+                            .toList(),
+                      ),
+              ],
+            ),
           ),
         ),
       ),

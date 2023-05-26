@@ -1,6 +1,7 @@
 import 'package:do_an_1_iot/providers/theme_provider.dart';
 import 'package:do_an_1_iot/providers/data_provider.dart';
-import 'package:do_an_1_iot/utils/cache/local_data_source.dart';
+import 'package:do_an_1_iot/providers/weather_provider.dart';
+import 'package:do_an_1_iot/utils/local_data_source.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +14,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await LocalDataSource.initialize();
-  bool isDarkModeOn = LocalDataSource().isDarkMode;
 
   ///
   /// Device orientation
@@ -30,14 +30,6 @@ void main() async {
   );
 
   ///
-  /// Status bar setting
-  ///
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // transparent status bar
-    statusBarIconBrightness: isDarkModeOn ? Brightness.light : Brightness.dark,
-  ));
-
-  ///
   /// runApp
   ///
   runApp(
@@ -48,6 +40,9 @@ void main() async {
         ),
         ChangeNotifierProvider<DataProvider>(
           create: (context) => DataProvider(),
+        ),
+        ChangeNotifierProvider<WeatherProvider>(
+          create: (context) => WeatherProvider(),
         ),
       ],
       child: const MyApp(),

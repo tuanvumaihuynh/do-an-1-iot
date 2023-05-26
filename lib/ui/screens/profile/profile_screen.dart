@@ -1,12 +1,6 @@
 import 'package:do_an_1_iot/constants/sizes.dart';
-import 'package:do_an_1_iot/models/user_model.dart';
-import 'package:do_an_1_iot/routes.dart';
-import 'package:do_an_1_iot/services/auth_service.dart';
-import 'package:do_an_1_iot/services/realtime_database_service.dart';
 import 'package:do_an_1_iot/ui/screens/profile/sections/body_profile.dart';
 import 'package:do_an_1_iot/ui/screens/profile/sections/header_profile.dart';
-import 'package:do_an_1_iot/utils/id/id_generator.dart';
-
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {

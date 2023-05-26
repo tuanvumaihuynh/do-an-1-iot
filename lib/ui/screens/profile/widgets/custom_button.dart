@@ -25,7 +25,6 @@ class CustomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.white,
       borderRadius: BorderRadius.only(
           topLeft: Radius.circular(_topLeft),
           topRight: Radius.circular(_topRight),

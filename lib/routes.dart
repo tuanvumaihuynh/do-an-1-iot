@@ -6,8 +6,8 @@ import 'package:do_an_1_iot/ui/screens/verification/verification_screen.dart';
 import 'package:do_an_1_iot/ui/screens/manage_home/manage_home_screen.dart';
 import 'package:do_an_1_iot/ui/screens/profile_setting/profile_setting.dart';
 import 'package:flutter/material.dart';
-
 import 'animations/fade_page_route.dart';
+import 'animations/slide_page_route.dart';
 import 'ui/screens/main/main_screen.dart';
 import 'ui/screens/splash/splash_screen.dart';
 
@@ -18,6 +18,7 @@ enum Routes {
   forgotPassword,
   verification,
   main,
+  home,
   manageHome,
   manageRoom,
   manageDevice,
@@ -34,6 +35,7 @@ class _Paths {
   static const String forgotPassword = '/forgot_password';
   static const String verification = '/verification';
   static const String main = '/main';
+  static const String home = '/home';
   static const String manageHome = '/home/manage_home';
   static const String manageRoom = '/home/manage_room';
   static const String manageDevice = '/home/manage_device';
@@ -49,6 +51,7 @@ class _Paths {
     Routes.forgotPassword: _Paths.forgotPassword,
     Routes.verification: _Paths.verification,
     Routes.main: _Paths.main,
+    Routes.home: _Paths.home,
     Routes.manageHome: _Paths.manageHome,
     Routes.manageRoom: _Paths.manageRoom,
     Routes.manageDevice: _Paths.manageDevice,
@@ -64,6 +67,9 @@ class _Paths {
 class AppNavigator {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
+  ///
+  /// HomeScreen and ProfileScreen are inside MainScreen
+  ///
   static Route<Widget> onGenerateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case _Paths.splash:
@@ -73,23 +79,17 @@ class AppNavigator {
       case _Paths.signUp:
         return FadeRoute(page: const SignUpScreen());
       case _Paths.forgotPassword:
-        return FadeRoute(page: Container());
+        return SlideRoute(page: Container());
       case _Paths.verification:
         return FadeRoute(page: const VerificationScreen());
       case _Paths.manageHome:
-        return FadeRoute(page: const ManageHomeScreen());
+        return SlideRoute(page: const ManageHomeScreen());
       case _Paths.manageRoom:
-        return FadeRoute(page: const ManageRoomScreen());
+        return SlideRoute(page: const ManageRoomScreen());
       case _Paths.manageDevice:
-        return FadeRoute(page: const ManageDeviceScreen());
-      case _Paths.controlDevice:
-        return FadeRoute(page: Container());
-      case _Paths.statistic:
-        return FadeRoute(page: Container());
-      case _Paths.profile:
-        return FadeRoute(page: Container());
+        return SlideRoute(page: const ManageDeviceScreen());
       case _Paths.profileSetting:
-        return FadeRoute(page: const ProfileSettingScreen());
+        return SlideRoute(page: const ProfileSettingScreen());
       case _Paths.main:
       default:
         return FadeRoute(page: const MainScreen());

@@ -1,3 +1,4 @@
+import 'package:do_an_1_iot/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class TitleWidget extends StatelessWidget {
@@ -9,7 +10,7 @@ class TitleWidget extends StatelessWidget {
     return Text(
       title,
       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            color: const Color(0xFF666666),
+            color: AppColors.secondaryColor,
           ),
     );
   }

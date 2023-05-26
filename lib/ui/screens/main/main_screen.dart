@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:do_an_1_iot/constants/colors.dart';
+import 'package:do_an_1_iot/models/weather_model.dart';
 import 'package:do_an_1_iot/providers/data_provider.dart';
+import 'package:do_an_1_iot/providers/weather_provider.dart';
 import 'package:do_an_1_iot/ui/widgets/loading_widget.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,6 @@ import 'package:provider/provider.dart';
 
 import '../home/home_screen.dart';
 import '../profile/profile_screen.dart';
-import '../statistic/statistic_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -25,9 +26,10 @@ class _MainScreenState extends State<MainScreen> {
   bool _isInit = true;
   bool _isLoading = false;
 
+  WeatherModel? weatherModel;
+
   final List<Widget> _screen = <Widget>[
     const HomeScreen(),
-    const StatisticScreen(),
     const ProfileScreen()
   ];
 
@@ -35,28 +37,20 @@ class _MainScreenState extends State<MainScreen> {
   void didChangeDependencies() async {
     super.didChangeDependencies();
 
-    print('===================  DID CHANGE DEPENDENCIES');
-
     if (_isInit) {
       setState(() {
         _isLoading = true;
       });
 
-      /// Do something
-      ///
-      ///   - Fetch data
-      ///   - Start stream
-      ///   - ...
-      ///
-      ///
       final dataProvider = Provider.of<DataProvider>(context, listen: false);
 
-      await dataProvider.startDataStreamSubcription();
+      await Future.wait([
+        dataProvider.startDataStreamSubcription(),
+        dataProvider.waitUntilDataComing(),
+        Provider.of<WeatherProvider>(context, listen: false).getWeatherData(),
+      ]);
+
       _userStreamSubcription = dataProvider.dataStreamSubcription;
-
-      await dataProvider.waitUntilDataComing();
-
-      ///!  Fix userData coming too late.
 
       setState(() {
         _isLoading = false;
@@ -68,8 +62,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void dispose() async {
-    print('===================  DIPOSE');
-
     _userStreamSubcription.cancel();
 
     super.dispose();
@@ -85,9 +77,6 @@ class _MainScreenState extends State<MainScreen> {
               items: const [
                 BottomNavigationBarItem(
                     icon: Icon(Icons.home_outlined), label: 'Home'),
-                BottomNavigationBarItem(
-                    icon: Icon(Icons.data_thresholding_outlined),
-                    label: 'Statistic'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.person_outline_outlined),
                     label: 'Profile'),
