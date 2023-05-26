@@ -43,15 +43,6 @@ class WeatherCard extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Text(
-                        weatherModel != null
-                            ? weatherModel.weatherStatus
-                            : 'No data',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
                       const SizedBox(height: 5),
                       Text(
                         getCurrentFormattedDate(),
