@@ -61,11 +61,11 @@ class TabBarViewBody extends StatelessWidget {
               mainAxisSpacing: 10,
               childAspectRatio: 1.0,
               padding: const EdgeInsets.only(top: AppSizes.defaultPadding),
-              children: devices
-                  .map((device) => DeviceCard(
-                        device: device,
-                      ))
-                  .toList(),
+              children: devices.map((device) {
+                return DeviceCard(
+                  device: device,
+                );
+              }).toList(),
             ),
           ),
           const SizedBox(height: AppSizes.defaultPadding),

@@ -78,3 +78,42 @@ class DoorLock extends DeviceModel {
         id: {'name': name, 'type': type, 'state': state}
       };
 }
+
+class AirConditioner extends DeviceModel {
+  AirConditioner(
+      {required id,
+      required name,
+      required state,
+      super.type,
+      required this.humidity,
+      required this.temperature})
+      : super(
+          id: id,
+          name: name,
+          state: state,
+        );
+
+  int temperature;
+  int humidity;
+
+  factory AirConditioner.fromDatabase(String id, Map deviceData) {
+    return AirConditioner(
+        id: id,
+        name: deviceData['name'],
+        state: deviceData['state'],
+        temperature: deviceData['temperature'],
+        humidity: deviceData['humidity'],
+        type: deviceData['type']);
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        id: {
+          'name': name,
+          'type': type,
+          'state': state,
+          'temperature': temperature,
+          'humidity': humidity
+        }
+      };
+}

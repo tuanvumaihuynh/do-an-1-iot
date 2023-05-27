@@ -1,6 +1,8 @@
 import 'package:do_an_1_iot/constants/colors.dart';
 import 'package:do_an_1_iot/constants/sizes.dart';
+import 'package:do_an_1_iot/models/device_model.dart';
 import 'package:do_an_1_iot/models/weather_model.dart';
+import 'package:do_an_1_iot/providers/data_provider.dart';
 import 'package:do_an_1_iot/providers/weather_provider.dart';
 
 import 'package:do_an_1_iot/utils/date_format.dart';
@@ -16,6 +18,17 @@ class WeatherCard extends StatelessWidget {
   Widget build(BuildContext context) {
     WeatherModel? weatherModel =
         Provider.of<WeatherProvider>(context).weatherModel;
+
+    final selectedRoom = Provider.of<DataProvider>(context).selectedRoom;
+
+    AirConditioner? airConditioner;
+    if (selectedRoom?.devices != null) {
+      for (var device in selectedRoom!.devices!) {
+        if (device.runtimeType == AirConditioner) {
+          airConditioner = device as AirConditioner;
+        }
+      }
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: AppSizes.defaultPadding),
@@ -69,17 +82,17 @@ class WeatherCard extends StatelessWidget {
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Indoor temp',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
-                        '18°C',
-                        style: TextStyle(
+                        '${airConditioner?.temperature}°C',
+                        style: const TextStyle(
                           color: AppColors.secondaryColor,
                           fontWeight: FontWeight.w500,
                         ),
@@ -88,17 +101,17 @@ class WeatherCard extends StatelessWidget {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Humidity',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       Text(
-                        '40%',
-                        style: TextStyle(
+                        '${airConditioner?.humidity}%',
+                        style: const TextStyle(
                           color: AppColors.secondaryColor,
                           fontWeight: FontWeight.w500,
                         ),

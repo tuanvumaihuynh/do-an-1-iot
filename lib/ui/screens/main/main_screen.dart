@@ -47,7 +47,7 @@ class _MainScreenState extends State<MainScreen> {
       await Future.wait([
         dataProvider.startDataStreamSubcription(),
         dataProvider.waitUntilDataComing(),
-        Provider.of<WeatherProvider>(context, listen: false).getWeatherData(),
+        // Provider.of<WeatherProvider>(context, listen: false).getWeatherData(),
       ]);
 
       _userStreamSubcription = dataProvider.dataStreamSubcription;

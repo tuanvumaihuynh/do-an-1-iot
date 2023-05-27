@@ -50,6 +50,8 @@ DeviceModel getDeviceBasedOnType(String id, Map deviceData) {
       return Fan.fromDatabase(id, deviceData);
     case 'door_lock':
       return DoorLock.fromDatabase(id, deviceData);
+    case 'AC':
+      return AirConditioner.fromDatabase(id, deviceData);
     default:
       return DeviceModel.fromDatabase(id, deviceData);
   }
