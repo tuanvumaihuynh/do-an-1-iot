@@ -1,9 +1,10 @@
 # Smartify
+[![CI](https://github.com/tuanvumaihuynh/flutter-smartify-iot/actions/workflows/dart.yml/badge.svg)](https://github.com/tuanvumaihuynh/flutter-smartify-iot/actions/workflows/dart.yml)
 [![License](https://img.shields.io/badge/License-MIT-red.svg)](LICENSE)
 
 Smarthome app built with Flutter.
 
-This branch, v2.0.0, is used for the IoT project that combines Esp32 and several sensors for the first assignment. For more detailed information, please switch to the main branch.
+This branch, v2.0.0, is used for the IoT project that combines Esp32 and several sensors for the university project. About further development, please switch to the main branch.
 ## App preview
 ![Signin](screenshots/signin.png "Sign in")
 ![Signup](screenshots/signup.png "Home")
